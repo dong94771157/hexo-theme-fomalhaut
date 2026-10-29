@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Demo
+title: 琳东博客
 subtitle:
-description: "一个基于 Hexo + Fomalhaut 主题的演示站点"
-keywords: "Hexo,Butterfly,Fomalhaut,博客,主题,卡片式UI"
-author: Demo
+description: "记录技术与生活"
+keywords: "琳东,博客,技术,运维,CDN,SSH,AI"
+author: 琳东
 language: zh-CN
 timezone: ""
 
