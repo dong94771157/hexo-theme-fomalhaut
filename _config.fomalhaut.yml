@@ -17,6 +17,7 @@ menu:
     朋友圈: /social/fcircle/ || icon-pengyouquan || faa-tada
     留言板: /comments/ || icon-liuyan || faa-tada
     友人帐: /social/link/ || icon-lianjie || faa-tada
+    赞助: /reward/ || fas fa-heart || faa-tada
   网站 || icon-wangye || faa-tada || hide:
     网站统计: /site/census/ || icon--tongjibiao || faa-tada
     旧时光: /site/time/ || icon-xianxingshalou || faa-tada
@@ -475,10 +476,10 @@ reward:
   enable: true
   coinAudio: https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a
   QR_code:
-    - img: https://picsum.photos/id/1018/1200/675
+    - img: /img/reward/wechat.png
       link:
       text: 微信
-    - img: https://picsum.photos/id/1043/1200/675
+    - img: /img/reward/alipay.png
       link:
       text: 支付宝
 
