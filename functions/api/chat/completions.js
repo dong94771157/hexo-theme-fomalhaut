@@ -88,7 +88,7 @@ function modelName(env) {
   return String((env && env.DEEPSEEK_MODEL) || 'deepseek-chat');
 }
 function cfAiModel(env) {
-  return String((env && env.CF_AI_MODEL) || '@cf/qwen/qwen3-30b-a3b-fp8');
+  return String((env && env.CF_AI_MODEL) || '@cf/meta/llama-3.3-70b-instruct-fp8-fast');
 }
 const hits = new Map();
 function rateOk(env, request, ip) {
