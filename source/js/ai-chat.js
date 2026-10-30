@@ -833,7 +833,8 @@
     var bub = addTyping();
 
     var key = String(CFG.api_key || '');
-    if (!key) {
+    var proxy = String(CFG.api_base || '').charAt(0) === '/';  // 同源代理（相对路径）无需前端 Key
+    if (!key && !proxy) {
       if (bub) {
         bub.parentNode.className = 'ai-row err';
         bub.innerHTML = '还没配 API Key：打开 <code>_config.fomalhaut.yml</code>，在 <code>ai_chat</code> 段填 <code>api_key</code>；' +
@@ -960,7 +961,9 @@
 
     fetch(apiUrl(), {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+      headers: proxy
+        ? { 'Content-Type': 'application/json' }
+        : { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
       body: JSON.stringify({
         model: CFG.model,
         messages: msgs,
