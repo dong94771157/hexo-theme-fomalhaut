@@ -472,7 +472,7 @@ post_copyright:
 # Sponsor/reward
 # 2026-10-05 按要求关闭文章底部「投喂作者」按钮（投喂通道暂停）
 reward:
-  enable: false
+  enable: true
   coinAudio: https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a
   QR_code:
     - img: https://picsum.photos/id/1018/1200/675
@@ -543,7 +543,7 @@ comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42
   use:
-    - Twikoo # Valine,Disqus,...
+    - Giscus
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
@@ -638,9 +638,9 @@ twikoo:
 # Giscus
 # https://giscus.app/
 giscus:
-  repo:
-  repo_id:
-  category_id:
+  repo: dong94771157/hexo-theme-fomalhaut
+  repo_id: R_kgDOVAANFg
+  category_id: DIC_kwDOVAANFs4DJ9l0
   theme:
     light: light
     dark: dark
@@ -1529,7 +1529,7 @@ lantern:
 #       站点根目录的 .ai-chat-key（已加进 .gitignore），下面 api_key 留空即可。
 ai_chat:
   enable: true                 # 总开关：false 则不注入按钮和面板
-  api_base: https://api.deepseek.com
+  api_base: /api/chat/completions  # 同源代理（CF Pages Function），密钥在服务端环境变量，前端无需填写
   api_key: ''                  # 直接写 Key（不推荐，会进 git）
   api_key_file: .ai-chat-key   # 或从文件读；相对站点根目录
   model: deepseek-chat    # 换模型只改这一行。deepseek-flash 是「思考型」模型：它先吐一大段 reasoning，
