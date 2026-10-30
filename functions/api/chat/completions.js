@@ -160,3 +160,130 @@ function cfAiStreamToOpenAI(aiStream, model) {
     }
   });
 }
+
+export function onRequestGet({ env }) {
+  const hasKey = !!String((env && env.DEEPSEEK_API_KEY) || '').trim();
+  const hasAI = !!(env && env.AI);
+  const mode = hasKey ? 'deepseek' : (hasAI ? 'workers-ai' : 'none');
+  return json({
+    ok: hasKey || hasAI,
+    mode: mode,
+    model: hasKey ? modelName(env) : cfAiModel(env),
+    hasKey: hasKey,
+    hasAI: hasAI,
+    allowSuffixes: allowSuffixes(env),
+    extraOrigins: extraOrigins(env)
+  });
+}
+export function onRequestHead(ctx) { return onRequestGet(ctx); }
+export function onRequestOptions() {
+  return new Response(null, { status: 204, headers: { allow: 'POST, GET, HEAD, OPTIONS' } });
+}
+
+export async function onRequestPost({ request, env }) {
+  if (!originAllowed(request, env)) {
+    return fail(403, '来源不在白名单：' + (request.headers.get('origin') || request.headers.get('referer') || '(空)') +
+      '。ldwl.dpdns.org 全家族本来就放行；别的域名要放行就加进 Cloudflare 环境变量 AI_PROXY_ORIGINS。');
+  }
+
+  const key = String((env && env.DEEPSEEK_API_KEY) || '').trim();
+  const hasAI = !!(env && env.AI);
+
+  if (!key && !hasAI) {
+    return fail(500, '服务端还没配 AI 后端，二选一即可：\n' +
+      '方式一（推荐·免费）：Cloudflare → Workers 和 Pages → fomalhaut-blog → 设置 → 函数 → AI 绑定 → 添加，变量名填 AI。\n' +
+      '方式二：设置 → 变量和密钥 → 添加 DEEPSEEK_API_KEY。\n' +
+      '配置后重新部署即可。');
+  }
+
+  const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'unknown';
+  if (!rateOk(env, request, ip)) return fail(429, '请求太频繁了，过一会儿再试。');
+
+  const raw = await request.text();
+  if (raw.length > MAX_BODY_BYTES) return fail(413, '请求体太大。');
+  let body;
+  try { body = raw ? JSON.parse(raw) : {}; } catch (e) { return fail(400, '请求体不是合法 JSON。'); }
+
+  const msgs = Array.isArray(body.messages) ? body.messages.slice(-MAX_MESSAGES) : [];
+  if (!msgs.length) return fail(400, '缺少 messages。');
+  const cleanMsgs = msgs.map(function (m) {
+    return {
+      role: (m && (m.role === 'assistant' || m.role === 'system')) ? m.role : 'user',
+      content: String((m && m.content) || '').slice(0, MAX_CHARS_PER_MSG)
+    };
+  });
+
+  /* ---------- 方式二：DeepSeek 代理（原有逻辑） ---------- */
+  if (key) {
+    const out = {
+      model: modelName(env),
+      stream: true,
+      max_tokens: clampNum(body.max_tokens, 2048, 1, MAX_TOKENS_CAP),
+      temperature: clampNum(body.temperature, 0.7, 0, 2),
+      messages: cleanMsgs
+    };
+    let upstream;
+    try {
+      upstream = await fetch(upstreamBase(env) + '/chat/completions', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', authorization: 'Bearer ' + key },
+        body: JSON.stringify(out),
+        signal: request.signal
+      });
+    } catch (e) {
+      return fail(502, '连不上上游接口：' + String((e && e.message) || e));
+    }
+    const ct = upstream.headers.get('content-type') || '';
+    if (!upstream.ok || ct.indexOf('text/event-stream') < 0) {
+      const text = await upstream.text();
+      return new Response(text || JSON.stringify({ error: { message: '上游没有返回内容' } }), {
+        status: upstream.status || 502,
+        headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }
+      });
+    }
+    return new Response(upstream.body, {
+      status: 200,
+      headers: {
+        'content-type': 'text/event-stream; charset=utf-8',
+        'cache-control': 'no-cache, no-transform',
+        'x-accel-buffering': 'no'
+      }
+    });
+  }
+
+  /* ---------- 方式一：Cloudflare Workers AI（免费，无需密钥） ---------- */
+  const aiModel = cfAiModel(env);
+  let aiStream;
+  try {
+    aiStream = await env.AI.run(aiModel, {
+      messages: cleanMsgs,
+      stream: true,
+      max_tokens: clampNum(body.max_tokens, 2048, 1, MAX_TOKENS_CAP),
+      temperature: clampNum(body.temperature, 0.7, 0, 2)
+    });
+  } catch (e) {
+    return fail(502, 'Workers AI 调用失败：' + String((e && e.message) || e) +
+      '。请确认已在 Cloudflare Pages 项目设置中添加了 AI 绑定（变量名 AI）。');
+  }
+
+  if (!aiStream || !aiStream.getReader) {
+    return fail(502, 'Workers AI 未返回流式响应，请检查 AI 绑定配置。');
+  }
+
+  return new Response(cfAiStreamToOpenAI(aiStream, aiModel), {
+    status: 200,
+    headers: {
+      'content-type': 'text/event-stream; charset=utf-8',
+      'cache-control': 'no-cache, no-transform',
+      'x-accel-buffering': 'no'
+    }
+  });
+}
+
+export function onRequest(ctx) {
+  const m = ctx.request.method;
+  if (m === 'GET' || m === 'HEAD') return onRequestGet(ctx);
+  if (m === 'OPTIONS') return onRequestOptions();
+  if (m === 'POST') return onRequestPost(ctx);
+  return fail(405, '只接受 POST。');
+}
