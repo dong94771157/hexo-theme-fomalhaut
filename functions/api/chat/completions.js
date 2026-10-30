@@ -1,23 +1,22 @@
 /* Cloudflare Pages Function —— /api/chat/completions 的同源代理
  * ---------------------------------------------------------------------------
- * 为什么需要这一份：Vercel 会把仓库里的 api/chat/completions.js 当 Serverless 函数跑，
- * 但 Cloudflare Pages 不认这个约定 —— 它只把 api/chat/completions.js 当静态文件，
- * POST 过去直接被静态资源服务器挡掉（HTTP 405）。Pages 的函数约定是仓库根目录下的
- * functions/ 目录，文件名即路由，所以这里再放一份等价实现。
+ * 双后端支持：
+ *   1. 配了 DEEPSEEK_API_KEY → 代理 DeepSeek API（OpenAI 兼容格式）
+ *   2. 没配 DEEPSEEK_API_KEY 但有 AI 绑定 → 使用 Cloudflare Workers AI（免费，无需密钥）
  *
  * 部署链路：scripts/vercel-api-copy.js 在 hexo generate 之后把本文件拷成
  *           public/functions/api/chat/completions.js，随 hexo d 进产物仓库；
  *           Cloudflare Pages 自动部署时读取根目录的 functions/ → 路由 /api/chat/completions。
- *           （Pages 里 Functions 的优先级高于同名静态文件，所以那边会跑到这里。）
  *
- * 环境变量（Cloudflare Pages → 项目 → 设置 → 变量和密钥）：
- *   DEEPSEEK_API_KEY       必填，真密钥（选「加密」类型）；只在服务端使用，不进页面
- *   AI_PROXY_ORIGINS       可选，默认已放行 example.com / example.com 全家族（含所有子域），
- *                          通常一个字都不用填；要额外域名才写，支持裸域名与 *.example.com，填 * 全放行
- *   AI_PROXY_ALLOW_SUFFIXES 可选，改默认域名后缀（默认 example.com,example.com）
- *   DEEPSEEK_MODEL         可选，默认 deepseek-chat
- *   DEEPSEEK_API_BASE      可选，默认 https://api.deepseek.com
- *   AI_PROXY_MAX_PER_HOUR  可选，默认 120（每个 isolate 内存计数，冷启动会重置，不是严格全局配额）
+ * 环境变量 / 绑定（Cloudflare Pages → 项目 → 设置）：
+ *   【方式一 · 推荐，免费】设置 → 函数 → AI 绑定 → 添加，变量名填 AI
+ *   【方式二】设置 → 变量和密钥 → 添加 DEEPSEEK_API_KEY（加密类型）
+ *
+ *   AI_PROXY_ORIGINS        可选，额外放行的来源域名
+ *   DEEPSEEK_MODEL          可选，默认 deepseek-chat（仅 DeepSeek 模式）
+ *   CF_AI_MODEL             可选，默认 @cf/meta/llama-3.1-8b-instruct（仅 Workers AI 模式）
+ *   DEEPSEEK_API_BASE       可选，默认 https://api.deepseek.com
+ *   AI_PROXY_MAX_PER_HOUR   可选，默认 120
  */
 
 const MAX_TOKENS_CAP = 8192;
@@ -33,14 +32,8 @@ function json(obj, status) {
 }
 function fail(status, message) { return json({ error: { message: message } }, status); }
 
-/* ------------------------------------------------------------------ 来源白名单
- * 默认就放行 example.com / example.com 及其所有子域，所以正常情况下一个环境变量都不用加。
- *   AI_PROXY_ORIGINS         可选：要额外放行的域名，逗号分隔；裸域名自动补 https://，
- *                            支持 *.example.com 通配；填 * 表示全放行。
- *   AI_PROXY_ALLOW_SUFFIXES  可选：改默认域名后缀，默认 example.com,example.com
- * 另外始终放行：localhost / 127.0.0.1 / ::1 / *.local（本地调试）
- * 与 *.vercel.app / *.pages.dev（平台预览域名）。 */
-const DEFAULT_SUFFIXES = 'example.com';
+/* ------------------------------------------------------------------ 来源白名单 */
+const DEFAULT_SUFFIXES = 'ldwl.dpdns.org,dpdns.org';
 
 function normOrigin(s) {
   s = String(s == null ? '' : s).trim().replace(/\/+$/, '');
@@ -77,7 +70,7 @@ function hostOk(host, env) {
 function originAllowed(request, env) {
   const o = request.headers.get('origin') || '';
   const ref = request.headers.get('referer') || '';
-  if (!o && !ref) return true;                    // curl / 健康检查这类没有来源的调用
+  if (!o && !ref) return true;
   let host = '';
   try { host = new URL(o || ref).hostname; } catch (e) { return false; }
   return hostOk(host, env);
@@ -94,6 +87,9 @@ function upstreamBase(env) {
 function modelName(env) {
   return String((env && env.DEEPSEEK_MODEL) || 'deepseek-chat');
 }
+function cfAiModel(env) {
+  return String((env && env.CF_AI_MODEL) || '@cf/meta/llama-3.1-8b-instruct');
+}
 const hits = new Map();
 function rateOk(env, request, ip) {
   const max = parseInt((env && env.AI_PROXY_MAX_PER_HOUR) || '', 10) || 120;
@@ -105,23 +101,96 @@ function rateOk(env, request, ip) {
   return rec.n <= max;
 }
 
+/* ==================== Workers AI 流式响应 → OpenAI SSE 格式转换 ==================== */
+function wrapSSE(obj) {
+  return 'data: ' + JSON.stringify(obj) + '\n\n';
+}
+function cfAiStreamToOpenAI(aiStream, model) {
+  const encoder = new TextEncoder();
+  const id = 'chatcmpl-cf-' + Date.now();
+  return new ReadableStream({
+    async start(controller) {
+      const reader = aiStream.getReader();
+      try {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          // Workers AI 每块是 JSON：{"response":"..."} 或 {"response":"...","usage":{...}}
+          let text = '';
+          try {
+            const chunk = typeof value === 'string' ? JSON.parse(value) : value;
+            text = chunk.response || '';
+          } catch (e) {
+            text = String(value || '');
+          }
+          if (text) {
+            controller.enqueue(encoder.encode(wrapSSE({
+              id: id,
+              object: 'chat.completion.chunk',
+              model: model,
+              choices: [{ index: 0, delta: { content: text } }]
+            })));
+          }
+        }
+        controller.enqueue(encoder.encode(wrapSSE({
+          id: id,
+          object: 'chat.completion.chunk',
+          model: model,
+          choices: [{ index: 0, delta: {}, finish_reason: 'stop' }]
+        })));
+        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+      } catch (e) {
+        try {
+          controller.enqueue(encoder.encode(wrapSSE({
+            id: id,
+            object: 'chat.completion.chunk',
+            model: model,
+            choices: [{ index: 0, delta: { content: '\n[生成中断]' }, finish_reason: 'stop' }]
+          })));
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+        } catch (_) { /* ignore */ }
+      } finally {
+        controller.close();
+      }
+    }
+  });
+}
+
 export function onRequestGet({ env }) {
-  const has = !!String((env && env.DEEPSEEK_API_KEY) || '').trim();
-  return json({ ok: has, mode: 'proxy-cf', model: modelName(env), hasKey: has, allowSuffixes: allowSuffixes(env), extraOrigins: extraOrigins(env) });
+  const hasKey = !!String((env && env.DEEPSEEK_API_KEY) || '').trim();
+  const hasAI = !!(env && env.AI);
+  const mode = hasKey ? 'deepseek' : (hasAI ? 'workers-ai' : 'none');
+  return json({
+    ok: hasKey || hasAI,
+    mode: mode,
+    model: hasKey ? modelName(env) : cfAiModel(env),
+    hasKey: hasKey,
+    hasAI: hasAI,
+    allowSuffixes: allowSuffixes(env),
+    extraOrigins: extraOrigins(env)
+  });
 }
 export function onRequestHead(ctx) { return onRequestGet(ctx); }
 export function onRequestOptions() {
   return new Response(null, { status: 204, headers: { allow: 'POST, GET, HEAD, OPTIONS' } });
 }
+
 export async function onRequestPost({ request, env }) {
   if (!originAllowed(request, env)) {
     return fail(403, '来源不在白名单：' + (request.headers.get('origin') || request.headers.get('referer') || '(空)') +
-      '。example.com / example.com 全家族本来就放行；别的域名要放行就加进 Cloudflare 环境变量 AI_PROXY_ORIGINS（逗号分隔，裸域名会自动补 https://）。');
+      '。ldwl.dpdns.org 全家族本来就放行；别的域名要放行就加进 Cloudflare 环境变量 AI_PROXY_ORIGINS。');
   }
+
   const key = String((env && env.DEEPSEEK_API_KEY) || '').trim();
-  if (!key) {
-    return fail(500, '服务端没配 DEEPSEEK_API_KEY：Cloudflare → Workers 和 Pages → 你的项目 → 设置 → 变量和密钥，添加后重新部署。');
+  const hasAI = !!(env && env.AI);
+
+  if (!key && !hasAI) {
+    return fail(500, '服务端还没配 AI 后端，二选一即可：\n' +
+      '方式一（推荐·免费）：Cloudflare → Workers 和 Pages → fomalhaut-blog → 设置 → 函数 → AI 绑定 → 添加，变量名填 AI。\n' +
+      '方式二：设置 → 变量和密钥 → 添加 DEEPSEEK_API_KEY。\n' +
+      '配置后重新部署即可。');
   }
+
   const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'unknown';
   if (!rateOk(env, request, ip)) return fail(429, '请求太频繁了，过一会儿再试。');
 
@@ -132,40 +201,71 @@ export async function onRequestPost({ request, env }) {
 
   const msgs = Array.isArray(body.messages) ? body.messages.slice(-MAX_MESSAGES) : [];
   if (!msgs.length) return fail(400, '缺少 messages。');
-  const out = {
-    model: modelName(env),
-    stream: true,
-    max_tokens: clampNum(body.max_tokens, 2048, 1, MAX_TOKENS_CAP),
-    temperature: clampNum(body.temperature, 0.7, 0, 2),
-    messages: msgs.map(function (m) {
-      return {
-        role: (m && (m.role === 'assistant' || m.role === 'system')) ? m.role : 'user',
-        content: String((m && m.content) || '').slice(0, MAX_CHARS_PER_MSG)
-      };
-    })
-  };
+  const cleanMsgs = msgs.map(function (m) {
+    return {
+      role: (m && (m.role === 'assistant' || m.role === 'system')) ? m.role : 'user',
+      content: String((m && m.content) || '').slice(0, MAX_CHARS_PER_MSG)
+    };
+  });
 
-  let upstream;
+  /* ---------- 方式二：DeepSeek 代理（原有逻辑） ---------- */
+  if (key) {
+    const out = {
+      model: modelName(env),
+      stream: true,
+      max_tokens: clampNum(body.max_tokens, 2048, 1, MAX_TOKENS_CAP),
+      temperature: clampNum(body.temperature, 0.7, 0, 2),
+      messages: cleanMsgs
+    };
+    let upstream;
+    try {
+      upstream = await fetch(upstreamBase(env) + '/chat/completions', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', authorization: 'Bearer ' + key },
+        body: JSON.stringify(out),
+        signal: request.signal
+      });
+    } catch (e) {
+      return fail(502, '连不上上游接口：' + String((e && e.message) || e));
+    }
+    const ct = upstream.headers.get('content-type') || '';
+    if (!upstream.ok || ct.indexOf('text/event-stream') < 0) {
+      const text = await upstream.text();
+      return new Response(text || JSON.stringify({ error: { message: '上游没有返回内容' } }), {
+        status: upstream.status || 502,
+        headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }
+      });
+    }
+    return new Response(upstream.body, {
+      status: 200,
+      headers: {
+        'content-type': 'text/event-stream; charset=utf-8',
+        'cache-control': 'no-cache, no-transform',
+        'x-accel-buffering': 'no'
+      }
+    });
+  }
+
+  /* ---------- 方式一：Cloudflare Workers AI（免费，无需密钥） ---------- */
+  const aiModel = cfAiModel(env);
+  let aiStream;
   try {
-    upstream = await fetch(upstreamBase(env) + '/chat/completions', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', authorization: 'Bearer ' + key },
-      body: JSON.stringify(out),
-      signal: request.signal
+    aiStream = await env.AI.run(aiModel, {
+      messages: cleanMsgs,
+      stream: true,
+      max_tokens: clampNum(body.max_tokens, 2048, 1, MAX_TOKENS_CAP),
+      temperature: clampNum(body.temperature, 0.7, 0, 2)
     });
   } catch (e) {
-    return fail(502, '连不上上游接口：' + String((e && e.message) || e));
+    return fail(502, 'Workers AI 调用失败：' + String((e && e.message) || e) +
+      '。请确认已在 Cloudflare Pages 项目设置中添加了 AI 绑定（变量名 AI）。');
   }
 
-  const ct = upstream.headers.get('content-type') || '';
-  if (!upstream.ok || ct.indexOf('text/event-stream') < 0) {
-    const text = await upstream.text();
-    return new Response(text || JSON.stringify({ error: { message: '上游没有返回内容' } }), {
-      status: upstream.status || 502,
-      headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }
-    });
+  if (!aiStream || !aiStream.getReader) {
+    return fail(502, 'Workers AI 未返回流式响应，请检查 AI 绑定配置。');
   }
-  return new Response(upstream.body, {
+
+  return new Response(cfAiStreamToOpenAI(aiStream, aiModel), {
     status: 200,
     headers: {
       'content-type': 'text/event-stream; charset=utf-8',
@@ -174,6 +274,7 @@ export async function onRequestPost({ request, env }) {
     }
   });
 }
+
 export function onRequest(ctx) {
   const m = ctx.request.method;
   if (m === 'GET' || m === 'HEAD') return onRequestGet(ctx);
