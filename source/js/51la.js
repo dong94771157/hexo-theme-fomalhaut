@@ -1,6 +1,6 @@
 try {
     //51.1a
-    LA.init({ id: "oYbMRDRhgE6VjYN4chcvEof9ticuToIs", ck: "xCVovhsiT1OCLFPoGdcPbMHAuxipWbfj", hashMode: true });
+    LA.init({ id: "LMkY8T98IM1tmqI3", ck: "LMkY8T98IM1tmqI3" });
 
     //灵雀应用监控
     new LingQue.Monitor().init({ id: "YOUR_LINGQUE_ID", sendSpaPv: true });

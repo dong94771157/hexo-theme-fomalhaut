@@ -98,7 +98,7 @@ description: 网站访客统计看板�?1LA 实时访客数据、GitHub 贡献�
     return String(v == null || v === '' ? '--' : v).replace(/\d{1,3}(?=(\d{3})+$)/g, function (m) { return m + ',' })
   }
   var pad = function (n) { return (n < 10 ? '0' : '') + n }
-  fetch('https://v6-widget.51.la/v6/oYbMRDRhgE6VjYN4chcvEof9ticuToIs/quote.js?theme=#28D2C1,#333333,#484545,#D03E3E,#F4F8F7,#28D2C1,14&col=true&f=14&badge=icon_0&icon=center')
+  fetch('https://v6-widget.51.la/v6/LMkY8T98IM1tmqI3/quote.js?theme=#28D2C1,#333333,#484545,#D03E3E,#F4F8F7,#28D2C1,14&col=true&f=14&badge=icon_0&icon=center')
     .then(function (res) { return res.text() })
     .then(function (data) {
       var num = data.match(/(?<=<\/span><span>).*?(?=<\/span><\/p>)/g) || []
