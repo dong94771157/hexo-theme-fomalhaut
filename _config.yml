@@ -236,9 +236,9 @@ gitcalendar:
   #   name: content
   #   index: 0
   # simplemode: true
-  user: yourname # git用户名
-  apiurl: "https://gitcalendar.example.com" # 你的 gitcalendar 服务地址
-  jsonurl: "https://cdn.jsdelivr.net/gh/yourname/gitcalendar-data@main/data.json" # 方案B：GitHub Action 定时更新的数据
+  user: dong94771157 # git用户名
+  apiurl: "https://blog.ldwl.dpdns.org" # 你的 gitcalendar 服务地址
+  jsonurl: "https://blog.ldwl.dpdns.org/api/gitcalendar?user=dong94771157" # 方案B：GitHub Action 定时更新的数据
   minheight:
     pc: 320px #桌面端最小高度
     mibile: 0px #移动端最小高度
