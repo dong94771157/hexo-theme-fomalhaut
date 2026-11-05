@@ -16,13 +16,11 @@ description: 如果琳东的文章对你有帮助，可以请琳东喝杯咖啡
   </div>
   <div class="reward-page-cards">
     <div class="reward-page-card">
-      <img src="/img/reward/wechat.png" alt="微信收款码" loading="lazy" onerror="this.parentNode.classList.add('qr-empty');this.remove()"/>
-      <div class="reward-page-card-empty">微信收款码<br/><small>待上传</small></div>
+      <div class="reward-page-qr" style="background-image:url('/img/reward/wechat.png')" role="img" aria-label="微信收款码"></div>
       <span class="reward-page-card-label">微信支付</span>
     </div>
     <div class="reward-page-card">
-      <img src="/img/reward/alipay.png" alt="支付宝收款码" loading="lazy" onerror="this.parentNode.classList.add('qr-empty');this.remove()"/>
-      <div class="reward-page-card-empty">支付宝收款码<br/><small>待上传</small></div>
+      <div class="reward-page-qr" style="background-image:url('/img/reward/alipay.png')" role="img" aria-label="支付宝收款码"></div>
       <span class="reward-page-card-label">支付宝</span>
     </div>
   </div>
@@ -40,10 +38,7 @@ description: 如果琳东的文章对你有帮助，可以请琳东喝杯咖啡
 .reward-page-cards{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;padding:20px 0}
 .reward-page-card{background:var(--card-bg,#fff);border-radius:16px;padding:24px 28px;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s;position:relative;width:240px}
 .reward-page-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.1)}
-.reward-page-card img{width:200px;height:200px;object-fit:contain;border-radius:12px;border:1px solid var(--card-border,#eee)}
-.reward-page-card .reward-page-card-empty{display:none;width:200px;height:200px;border-radius:12px;border:2px dashed var(--card-border,#ddd);color:var(--text-color-40,#aaa);font-size:.9rem;line-height:200px;background:var(--card-bg,#fafafa)}
-.reward-page-card.qr-empty img{display:none}
-.reward-page-card.qr-empty .reward-page-card-empty{display:block}
+.reward-page-qr{width:200px;height:200px;margin:0 auto;border-radius:12px;border:1px solid var(--card-border,#eee);background:#fff center/contain no-repeat}
 .reward-page-card-label{display:block;margin-top:14px;font-size:1rem;font-weight:600;color:var(--card-text,#333)}
 .reward-page-note{padding:24px 0;color:var(--text-color-90,#666);font-size:.9rem}
 </style>
