@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#e2e8f0"/>
+
+  <g filter="url(#sh)">
+    <rect x="40" y="30" width="1120" height="570" rx="12" fill="#ffffff"/>
+  </g>
+
+  <!-- 浏览器顶栏 -->
+  <rect x="40" y="30" width="1120" height="52" rx="12" fill="#f1f5f9"/>
+  <rect x="40" y="58" width="1120" height="24" fill="#f1f5f9"/>
+  <circle cx="72" cy="56" r="7" fill="#ef4444"/>
+  <circle cx="96" cy="56" r="7" fill="#eab308"/>
+  <circle cx="120" cy="56" r="7" fill="#22c55e"/>
+  <rect x="160" y="42" width="620" height="28" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <circle cx="180" cy="56" r="5" fill="#22c55e"/>
+  <text x="196" y="61" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">https://dash.cloudflare.com/ldwl.tech/security/waf/custom-rules</text>
+
+  <!-- 左侧边栏 -->
+  <rect x="40" y="82" width="230" height="518" fill="#1e293b"/>
+  <g transform="translate(62,108)">
+    <circle cx="12" cy="12" r="12" fill="#F6821F"/>
+    <text x="34" y="17" font-family="Arial" font-size="15" font-weight="bold" fill="#ffffff">Cloudflare</text>
+  </g>
+  <g font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#94a3b8">
+    <text x="66" y="170">概述</text>
+    <text x="66" y="206">DNS 记录</text>
+    <text x="66" y="242">SSL/TLS</text>
+    <text x="66" y="278">缓存规则</text>
+    <rect x="48" y="294" width="214" height="38" rx="8" fill="#F6821F" opacity="0.18"/>
+    <rect x="48" y="294" width="4" height="38" fill="#F6821F"/>
+    <text x="66" y="318" fill="#F6821F" font-weight="bold">安全性 · WAF</text>
+    <text x="66" y="358">速度</text>
+    <text x="66" y="394">规则</text>
+    <text x="66" y="430">网络</text>
+  </g>
+
+  <!-- 内容区 -->
+  <text x="310" y="130" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="bold" fill="#0f172a">WAF 自定义规则</text>
+  <text x="310" y="158" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">按优先级从上到下匹配，命中即执行对应操作</text>
+
+  <rect x="1020" y="108" width="100" height="38" rx="8" fill="#F6821F"/>
+  <text x="1070" y="132" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">创建规则</text>
+
+  <!-- 规则1 -->
+  <rect x="310" y="178" width="810" height="86" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="330" y="206" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#0f172a">1. 屏蔽敏感路径扫描</text>
+  <rect x="330" y="218" width="470" height="30" rx="6" fill="#0f172a"/>
+  <text x="342" y="238" font-family="Consolas, monospace" font-size="12" fill="#7dd3fc">(http.request.uri.path contains "/.env") or (contains "/wp-admin")</text>
+  <rect x="820" y="196" width="70" height="26" rx="13" fill="#fef2f2"/>
+  <text x="855" y="214" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="bold" fill="#dc2626">Block</text>
+  <text x="910" y="214" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">命中 12,438 次</text>
+  <rect x="1060" y="198" width="44" height="22" rx="11" fill="#22c55e"/>
+  <circle cx="1093" cy="209" r="9" fill="#ffffff"/>
+
+  <!-- 规则2 -->
+  <rect x="310" y="274" width="810" height="86" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="330" y="302" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#0f172a">2. 后台仅限国内访问</text>
+  <rect x="330" y="314" width="470" height="30" rx="6" fill="#0f172a"/>
+  <text x="342" y="334" font-family="Consolas, monospace" font-size="12" fill="#7dd3fc">(http.request.uri.path contains "/admin") and (ip.geoip.country ne "CN")</text>
+  <rect x="820" y="292" width="70" height="26" rx="13" fill="#fef2f2"/>
+  <text x="855" y="310" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="bold" fill="#dc2626">Block</text>
+  <text x="910" y="310" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">命中 862 次</text>
+  <rect x="1060" y="294" width="44" height="22" rx="11" fill="#22c55e"/>
+  <circle cx="1093" cy="305" r="9" fill="#ffffff"/>
+
+  <!-- 规则3 -->
+  <rect x="310" y="370" width="810" height="86" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="330" y="398" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#0f172a">3. 登录接口速率限制</text>
+  <rect x="330" y="410" width="470" height="30" rx="6" fill="#0f172a"/>
+  <text x="342" y="430" font-family="Consolas, monospace" font-size="12" fill="#7dd3fc">(http.request.uri.path eq "/api/login") and (cf.rate_limit.count gt 10)</text>
+  <rect x="812" y="388" width="86" height="26" rx="13" fill="#fffbeb"/>
+  <text x="855" y="406" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" font-weight="bold" fill="#d97706">Challenge</text>
+  <text x="910" y="406" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">命中 231 次</text>
+  <rect x="1060" y="390" width="44" height="22" rx="11" fill="#22c55e"/>
+  <circle cx="1093" cy="401" r="9" fill="#ffffff"/>
+
+  <!-- 规则4 -->
+  <rect x="310" y="466" width="810" height="86" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="330" y="494" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#0f172a">4. 可疑 Bot 人机验证</text>
+  <rect x="330" y="506" width="470" height="30" rx="6" fill="#0f172a"/>
+  <text x="342" y="526" font-family="Consolas, monospace" font-size="12" fill="#7dd3fc">(cf.bot_management.score lt 30) and (not cf.client.bot)</text>
+  <rect x="812" y="484" width="86" height="26" rx="13" fill="#eff6ff"/>
+  <text x="855" y="502" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" font-weight="bold" fill="#2563eb">JS 验证</text>
+  <text x="910" y="502" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">命中 45,102 次</text>
+  <rect x="1060" y="486" width="44" height="22" rx="11" fill="#22c55e"/>
+  <circle cx="1093" cy="497" r="9" fill="#ffffff"/>
+
+  <!-- 底部统计 -->
+  <rect x="310" y="562" width="810" height="30" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <text x="330" y="582" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#15803d">近 7 天 WAF 共拦截恶意请求 58,633 次 — 源站零感知，业务零误伤</text>
+</svg>

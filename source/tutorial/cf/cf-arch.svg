@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6821F"/>
+      <stop offset="1" stop-color="#e06a00"/>
+    </linearGradient>
+    <linearGradient id="user" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <text x="600" y="72" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="bold" fill="#f1f5f9">Cloudflare 全球加速架构</text>
+  <text x="600" y="108" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="16" fill="#94a3b8">所有流量经 Cloudflare 边缘网络过滤、加速后再安全回源</text>
+
+  <!-- 用户 -->
+  <g filter="url(#sh)">
+    <circle cx="170" cy="310" r="62" fill="url(#user)"/>
+    <circle cx="170" cy="290" r="20" fill="#dbeafe"/>
+    <path d="M138 345 C138 318, 202 318, 202 345 Z" fill="#dbeafe"/>
+  </g>
+  <text x="170" y="410" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="20" font-weight="bold" fill="#e2e8f0">全球访客</text>
+  <text x="170" y="436" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#94a3b8">就近接入边缘节点</text>
+
+  <!-- 箭头1 -->
+  <line x1="245" y1="310" x2="425" y2="310" stroke="#94a3b8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="335" y="292" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#cbd5e1">HTTPS 请求</text>
+  <text x="335" y="336" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">Anycast 就近路由</text>
+
+  <!-- Cloudflare 云朵 -->
+  <g filter="url(#sh)">
+    <circle cx="525" cy="300" r="42" fill="url(#cloud)"/>
+    <circle cx="580" cy="272" r="52" fill="url(#cloud)"/>
+    <circle cx="642" cy="285" r="46" fill="url(#cloud)"/>
+    <circle cx="685" cy="312" r="34" fill="url(#cloud)"/>
+    <rect x="505" y="300" width="200" height="52" rx="24" fill="url(#cloud)"/>
+  </g>
+  <text x="598" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff">Cloudflare</text>
+  <text x="598" y="348" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#ffedd5">全球 330+ 边缘节点</text>
+
+  <!-- 功能胶囊 -->
+  <g font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#f1f5f9">
+    <rect x="440" y="405" width="170" height="44" rx="22" fill="none" stroke="#F6821F" stroke-width="2"/>
+    <text x="525" y="433" text-anchor="middle">SSL/TLS 全链路加密</text>
+    <rect x="630" y="405" width="140" height="44" rx="22" fill="none" stroke="#F6821F" stroke-width="2"/>
+    <text x="700" y="433" text-anchor="middle">智能边缘缓存</text>
+    <rect x="440" y="465" width="150" height="44" rx="22" fill="none" stroke="#F6821F" stroke-width="2"/>
+    <text x="515" y="493" text-anchor="middle">WAF Web 防火墙</text>
+    <rect x="610" y="465" width="160" height="44" rx="22" fill="none" stroke="#F6821F" stroke-width="2"/>
+    <text x="690" y="493" text-anchor="middle">DDoS 攻击缓解</text>
+  </g>
+
+  <!-- 箭头2 -->
+  <line x1="775" y1="310" x2="945" y2="310" stroke="#94a3b8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="860" y="292" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#cbd5e1">安全回源</text>
+  <text x="860" y="336" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">仅放行 CF IP 段</text>
+
+  <!-- 源站服务器 -->
+  <g filter="url(#sh)">
+    <rect x="965" y="255" width="110" height="110" rx="10" fill="#334155"/>
+    <rect x="980" y="270" width="80" height="24" rx="4" fill="#475569"/>
+    <circle cx="992" cy="282" r="4" fill="#22c55e"/>
+    <circle cx="1006" cy="282" r="4" fill="#eab308"/>
+    <rect x="980" y="302" width="80" height="24" rx="4" fill="#475569"/>
+    <circle cx="992" cy="314" r="4" fill="#22c55e"/>
+    <circle cx="1006" cy="314" r="4" fill="#22c55e"/>
+    <rect x="980" y="334" width="80" height="24" rx="4" fill="#475569"/>
+    <circle cx="992" cy="346" r="4" fill="#22c55e"/>
+    <circle cx="1006" cy="346" r="4" fill="#ef4444"/>
+  </g>
+  <text x="1020" y="410" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="20" font-weight="bold" fill="#e2e8f0">源站服务器</text>
+  <text x="1020" y="436" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#94a3b8">真实业务数据</text>
+
+  <!-- 底部标注 -->
+  <rect x="300" y="545" width="600" height="50" rx="25" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="576" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="16" fill="#94a3b8">访客与源站之间全程加密，恶意流量在边缘被拦截，静态资源由边缘直接返回</text>
+</svg>

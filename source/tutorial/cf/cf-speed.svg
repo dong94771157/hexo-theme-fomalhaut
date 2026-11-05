@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="before" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#64748b"/>
+      <stop offset="1" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="after" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6821F"/>
+      <stop offset="1" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- 标题 -->
+  <text x="600" y="70" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="32" font-weight="bold" fill="#f1f5f9">接入 Cloudflare 前后性能对比</text>
+  <text x="600" y="104" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#94a3b8">同一站点实测数据 — 边缘缓存 + 协议优化 + 智能路由的综合收益</text>
+
+  <!-- 图例 -->
+  <rect x="440" y="128" width="16" height="16" rx="3" fill="url(#before)"/>
+  <text x="466" y="141" font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#cbd5e1">优化前（直连源站）</text>
+  <rect x="660" y="128" width="16" height="16" rx="3" fill="url(#after)"/>
+  <text x="686" y="141" font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#cbd5e1">优化后（经 Cloudflare）</text>
+
+  <!-- 基线 -->
+  <line x1="140" y1="480" x2="1060" y2="480" stroke="#475569" stroke-width="2"/>
+
+  <!-- 组1: TTFB -->
+  <rect x="225" y="220" width="70" height="260" rx="6" fill="url(#before)"/>
+  <text x="260" y="208" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#cbd5e1">420 ms</text>
+  <rect x="305" y="427" width="70" height="53" rx="6" fill="url(#after)"/>
+  <text x="340" y="415" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#F6821F">85 ms</text>
+  <text x="300" y="510" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="bold" fill="#e2e8f0">TTFB 首字节时间</text>
+  <rect x="230" y="524" width="140" height="30" rx="15" fill="#052e16" stroke="#22c55e"/>
+  <text x="300" y="544" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#22c55e">降低 79.8%</text>
+
+  <!-- 组2: 首屏加载 -->
+  <rect x="525" y="220" width="70" height="260" rx="6" fill="url(#before)"/>
+  <text x="560" y="208" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#cbd5e1">2.8 s</text>
+  <rect x="605" y="396" width="70" height="84" rx="6" fill="url(#after)"/>
+  <text x="640" y="384" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#F6821F">0.9 s</text>
+  <text x="600" y="510" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="bold" fill="#e2e8f0">首屏完全加载</text>
+  <rect x="530" y="524" width="140" height="30" rx="15" fill="#052e16" stroke="#22c55e"/>
+  <text x="600" y="544" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#22c55e">降低 67.9%</text>
+
+  <!-- 组3: LCP -->
+  <rect x="825" y="220" width="70" height="260" rx="6" fill="url(#before)"/>
+  <text x="860" y="208" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#cbd5e1">3.1 s</text>
+  <rect x="905" y="379" width="70" height="101" rx="6" fill="url(#after)"/>
+  <text x="940" y="367" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#F6821F">1.2 s</text>
+  <text x="900" y="510" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="bold" fill="#e2e8f0">LCP 最大内容绘制</text>
+  <rect x="830" y="524" width="140" height="30" rx="15" fill="#052e16" stroke="#22c55e"/>
+  <text x="900" y="544" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#22c55e">降低 61.3%</text>
+
+  <!-- 底部说明 -->
+  <rect x="200" y="575" width="800" height="38" rx="19" fill="#0f172a" stroke="#334155"/>
+  <text x="600" y="599" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#94a3b8">测试条件：国内多地拨测均值 · 移动 4G 网络 · Chrome Lighthouse / WebPageTest</text>
+</svg>
