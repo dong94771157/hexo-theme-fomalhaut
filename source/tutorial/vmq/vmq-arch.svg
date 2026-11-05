@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6821F"/>
+      <stop offset="1" stop-color="#e06a00"/>
+    </linearGradient>
+    <linearGradient id="user" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="phone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#15803d"/>
+    </linearGradient>
+    <linearGradient id="shop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#7e22ce"/>
+    </linearGradient>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#22c55e"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <text x="600" y="66" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="bold" fill="#f1f5f9">V免签 · Cloudflare Workers 收款架构</text>
+  <text x="600" y="100" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="16" fill="#94a3b8">零服务器：监听手机收款通知代替支付回调，全链路跑在 Cloudflare 免费额度内</text>
+
+  <!-- 付款用户 -->
+  <g filter="url(#sh)">
+    <circle cx="150" cy="300" r="56" fill="url(#user)"/>
+    <circle cx="150" cy="282" r="18" fill="#dbeafe"/>
+    <path d="M121 332 C121 308, 179 308, 179 332 Z" fill="#dbeafe"/>
+  </g>
+  <text x="150" y="392" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="19" font-weight="bold" fill="#e2e8f0">付款用户</text>
+  <text x="150" y="416" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">扫码支付</text>
+
+  <!-- 箭头1: 用户 -> 手机 -->
+  <line x1="212" y1="300" x2="318" y2="300" stroke="#94a3b8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="265" y="284" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#cbd5e1">扫码付款</text>
+  <text x="265" y="324" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">微信/支付宝/QQ</text>
+
+  <!-- 手机 + 监控端 App -->
+  <g filter="url(#sh)">
+    <rect x="328" y="240" width="92" height="130" rx="14" fill="url(#phone)"/>
+    <rect x="340" y="256" width="68" height="92" rx="6" fill="#052e16"/>
+    <circle cx="374" cy="358" r="6" fill="#052e16"/>
+    <rect x="346" y="266" width="56" height="14" rx="4" fill="#22c55e" opacity="0.9"/>
+    <text x="374" y="277" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="9" fill="#052e16">收款通知</text>
+    <rect x="346" y="288" width="56" height="14" rx="4" fill="#16a34a" opacity="0.8"/>
+    <text x="374" y="299" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="9" fill="#052e16">监听推送</text>
+    <rect x="346" y="310" width="56" height="14" rx="4" fill="#15803d" opacity="0.7"/>
+    <text x="374" y="321" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="9" fill="#052e16">心跳上报</text>
+  </g>
+  <text x="374" y="398" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="bold" fill="#e2e8f0">监控端 App</text>
+  <text x="374" y="422" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">Android 7.0+</text>
+
+  <!-- 箭头2: 手机 -> Worker -->
+  <line x1="428" y1="300" x2="540" y2="300" stroke="#22c55e" stroke-width="3" marker-end="url(#arrG)"/>
+  <text x="484" y="284" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#86efac">POST /appPush</text>
+  <text x="484" y="324" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">到账通知+心跳</text>
+
+  <!-- Cloudflare Workers -->
+  <g filter="url(#sh)">
+    <circle cx="610" cy="288" r="38" fill="url(#cloud)"/>
+    <circle cx="660" cy="262" r="48" fill="url(#cloud)"/>
+    <circle cx="718" cy="274" r="42" fill="url(#cloud)"/>
+    <circle cx="758" cy="300" r="30" fill="url(#cloud)"/>
+    <rect x="592" y="288" width="186" height="48" rx="22" fill="url(#cloud)"/>
+  </g>
+  <text x="686" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff">V免签 Worker</text>
+  <text x="686" y="330" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#ffedd5">易支付协议网关 + 免签收单</text>
+
+  <!-- D1 数据库 -->
+  <g filter="url(#sh)">
+    <ellipse cx="686" cy="402" rx="72" ry="20" fill="#475569"/>
+    <rect x="614" y="372" width="144" height="30" fill="#64748b"/>
+    <ellipse cx="686" cy="372" rx="72" ry="20" fill="#94a3b8"/>
+    <ellipse cx="686" cy="372" rx="56" ry="14" fill="#cbd5e1"/>
+  </g>
+  <text x="686" y="377" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">D1 数据库</text>
+  <text x="686" y="446" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">订单 / 通道 / 配置</text>
+
+  <!-- 功能胶囊 -->
+  <g font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#f1f5f9">
+    <rect x="520" y="470" width="150" height="40" rx="20" fill="none" stroke="#F6821F" stroke-width="2"/>
+    <text x="595" y="495" text-anchor="middle">金额池防串单</text>
+    <rect x="690" y="470" width="150" height="40" rx="20" fill="none" stroke="#F6821F" stroke-width="2"/>
+    <text x="765" y="495" text-anchor="middle">8 次退避重试</text>
+  </g>
+
+  <!-- 箭头3: Worker -> 商户系统 -->
+  <line x1="800" y1="300" x2="918" y2="300" stroke="#94a3b8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="859" y="284" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#cbd5e1">异步回调</text>
+  <text x="859" y="324" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">GET notify_url</text>
+
+  <!-- 商户系统 -->
+  <g filter="url(#sh)">
+    <rect x="930" y="248" width="120" height="104" rx="12" fill="url(#shop)"/>
+    <rect x="948" y="266" width="84" height="20" rx="5" fill="#f3e8ff"/>
+    <text x="990" y="280" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#7e22ce">你的商城</text>
+    <rect x="948" y="294" width="84" height="20" rx="5" fill="#e9d5ff"/>
+    <text x="990" y="308" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#7e22ce">验签发货</text>
+    <rect x="948" y="322" width="84" height="20" rx="5" fill="#d8b4fe"/>
+    <text x="990" y="336" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#7e22ce">幂等处理</text>
+  </g>
+  <text x="990" y="392" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="19" font-weight="bold" fill="#e2e8f0">商户系统</text>
+  <text x="990" y="416" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">已有易支付接口直接兼容</text>
+
+  <!-- 底部标注 -->
+  <rect x="250" y="540" width="700" height="50" rx="25" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="571" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#94a3b8">没有支付回调，靠监控端 App 监听收款通知确认到账 —— 这就是「免签」二字的含义</text>
+</svg>
