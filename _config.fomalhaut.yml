@@ -765,9 +765,10 @@ theme_color:
   button_hover: # "#FF7242"
   text_selection: # "#49b1f5" # "#00c4b6"
   # 2026-10-03：曾短暂置空并把链接色接到 --theme-color，随后按用户要求撤回 —— 链接保留自己特有的颜色更好看。
-  link_color: "#a591e0"
+  # 2026-11-06 二次元粉色改版：链接色/分隔线色调成与主题粉(#ed709b)协调的粉色系，但保留独立色值。
+  link_color: "#c95d8f"
   meta_color: "#858585"
-  hr_color: "#A4D8FA"
+  hr_color: "#f0a8c0"
   code_foreground: # "#F47466"
   code_background: # "rgba(27, 31, 35, .05)"
   toc_color: # "#49b1f5" # "#00c4b6"
@@ -1208,7 +1209,7 @@ inject:
     - <style id="transPercent"></style> # 透明度调节
     - <style id="bgFilterParam"></style> # 背景滤镜
     - <span id="fps"></span> # 帧率检测
-    - <style id="defineBg">:root{--default-bg:url(https://picsum.photos/id/1015/1920/1080);--darkmode-bg:url(https://picsum.photos/id/1044/1920/1080);--mobileday-bg:url(https://picsum.photos/id/1018/1920/1080);--mobilenight-bg:url(https://picsum.photos/id/1039/1920/1080);}</style> # 默认背景（内联兜底：即使 fomal.js 未执行，首屏也有背景图；运行时会被 fomal.js 覆盖）
+    - <style id="defineBg">:root{--default-bg:linear-gradient(135deg, #ffe3ee 0%, #ffc6dd 45%, #ffa3c9 100%);--darkmode-bg:linear-gradient(135deg, #221726 0%, #32203a 55%, #3d2545 100%);--mobileday-bg:linear-gradient(135deg, #ffe3ee 0%, #ffc6dd 45%, #ffa3c9 100%);--mobilenight-bg:linear-gradient(135deg, #221726 0%, #32203a 55%, #3d2545 100%);}</style> # 默认背景（内联兜底：2026-11-06 二次元粉色改版，picsum 风景图 → 樱花粉渐变/深紫粉夜色；值必须与 settings.js resetBg_() 逐字一致，运行时被 fomal.js 覆盖）
     # 注意：夜间那张的地址必须与 source/js/modules/settings.js 的 resetBg_() 逐字一致 ——
     # 运行时覆盖前浏览器已按这里的值下过一份，URL 不一致就会同一张图下两份。
     - <style id="menu_shadow"></style> # 菜单发光样式
@@ -1260,7 +1261,7 @@ inject:
     # 回滚：删掉下面这两行即可（不需要清 public/）。
     - <script src="/js/inject/ping-route-boot.js"></script> # 延时探测参数（必须在 ping-route.js 之前执行）
     - <script src="/js/inject/ping-route.js"></script> # 公告栏线路延时徽标
-    - <script src="/js/inject/beauty-boot.js"></script> # 美化模块首屏预置（原内联 beautyBoot）
+    - <script src="/js/inject/beauty-boot.js?v=20261106-pink1"></script> # 美化模块首屏预置（原内联 beautyBoot）
     - <script src="/js/inject/right-menu-state-boot.js"></script> # 侧栏「右键模式」按钮状态同步
     # ── 首页副标题打字机「丝滑版」（站点独立脚本 + 样式，不改主题源码）────────────
     # 主题 subtitle.pug 调 Typed.js 时是 typeSpeed:150 的逐字硬蹦；source/js/inject/typewriter.js
@@ -1311,9 +1312,9 @@ inject:
     - <script defer src="/js/modules/effects.js?v=20261004q"></script> # 雪花/星空/表情放大
     - <script defer src="/js/modules/reading.js?v=20261005-animation1"></script> # 阅读进度条/FPS
     - <script defer src="/js/modules/nav.js?v=20261005-scroll1"></script> # 导航栏标题/首屏欢迎语/随便逛逛/分享
-    - <script defer src="/js/modules/cursor.js?v=20261005-hover1"></script> # 小猫咪/右键菜单/听话鼠标
+    - <script defer src="/js/modules/cursor.js?v=20261106-pink1"></script> # 小猫咪/右键菜单/听话鼠标
     - <script defer src="/js/modules/footer-time.js"></script> # 页脚计时器
-    - <script defer src="/js/modules/settings.js?v=20261005-animation1"></script> # 美化模块（右下角齿轮设置面板，最大的一块）
+    - <script defer src="/js/modules/settings.js?v=20261106-pink1"></script> # 美化模块（右下角齿轮设置面板，最大的一块）
     - <script defer src="/js/fomal.js"></script> # 站点主引导：模块地图 + 控制台策略 + 全局入口清单
     - <script defer src="/js/wechat-qr.js"></script> # 微信二维码点击弹层展示（同页灯箱，不跳转/不下载）
     - <script defer src="/js/festival.js"></script> # 节日提醒卡片（左上角通知）

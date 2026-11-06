@@ -579,7 +579,7 @@ class Cursor {
     if (!this.scr) this.scr = document.createElement('style');
     // 原地改样式，不移除；任何时候都不能露出文字区域的系统 I 形光标。
     if (!this.scr.isConnected) document.body.appendChild(this.scr);
-    const color = map.get(localStorage.getItem('themeColor')) || map.get('green');
+    const color = map.get(localStorage.getItem('themeColor')) || map.get('pink');
     if (this.color !== color) {
       const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" width="8px" height="8px"><circle cx="4" cy="4" r="4" fill="' + color + '"/></svg>';
       this.scr.textContent = '* {cursor: url("data:image/svg+xml,' + encodeURIComponent(svg) + '") 4 4, auto}';

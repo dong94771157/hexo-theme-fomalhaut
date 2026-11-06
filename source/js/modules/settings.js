@@ -81,10 +81,11 @@
 /* 美化模块 start */
 
 // 更新版本需要每个用户都恢复一次默认设置
-if (localStorage.getItem("reset_8") == undefined) {
-  localStorage.setItem("reset_8", "1");
+// 2026-11-06 二次元粉色改版：bump 到 reset_9，让所有访客重置一次以吃到新默认主题色(pink)与新默认背景
+if (localStorage.getItem("reset_9") == undefined) {
+  localStorage.setItem("reset_9", "1");
   // 清空之前的标记值
-  for (var i = 1; i <= 7; i++) {
+  for (var i = 1; i <= 8; i++) {
     localStorage.removeItem("reset_" + i);
   }
   initItem();
@@ -118,7 +119,7 @@ function initItem() {
   localStorage.setItem("transNum", "98");
   localStorage.setItem("font", FONT_DEFAULT);
   localStorage.setItem("codeFont", CODE_FONT_DEFAULT);
-  localStorage.setItem("themeColor", "green");
+  localStorage.setItem("themeColor", "pink");
   localStorage.setItem("rs", "block");
   localStorage.setItem("mouse", "on");
   localStorage.setItem("light", "true");
@@ -200,7 +201,7 @@ function markFontBorder(prefix, curKey) {
 
 // 设置主题色
 if (localStorage.getItem("themeColor") == undefined) {
-  localStorage.setItem("themeColor", "green");
+  localStorage.setItem("themeColor", "pink");
 }
 setColor(localStorage.getItem("themeColor"));
 function setColor(c) {
@@ -591,15 +592,17 @@ function bgValToUrl(s) {
     resetBg_();
   });
 })();
-// 默认背景
+// 默认背景（2026-11-06 二次元粉色改版：picsum 风景图 → 樱花粉渐变 / 深紫粉夜色，
+// 不依赖外部图床、刷新不换图、保证粉色基调；夜间值必须与 _config.fomalhaut.yml
+// inject.head 里的内联兜底逐字一致，否则首屏会下两份背景）
 function resetBg_() {
   var el = document.getElementById("defineBg");
   if (!el) return;
   el.innerText = `:root{
-    --default-bg: url(https://picsum.photos/id/1015/1920/1080);
-    --darkmode-bg:url(https://picsum.photos/id/1044/1920/1080);
-    --mobileday-bg: url(https://picsum.photos/id/1018/1920/1080);
-    --mobilenight-bg: url(https://picsum.photos/id/1039/1920/1080);
+    --default-bg: linear-gradient(135deg, #ffe3ee 0%, #ffc6dd 45%, #ffa3c9 100%);
+    --darkmode-bg:linear-gradient(135deg, #221726 0%, #32203a 55%, #3d2545 100%);
+    --mobileday-bg: linear-gradient(135deg, #ffe3ee 0%, #ffc6dd 45%, #ffa3c9 100%);
+    --mobilenight-bg: linear-gradient(135deg, #221726 0%, #32203a 55%, #3d2545 100%);
   }`;
 }
 
@@ -1138,7 +1141,7 @@ function reset() {
 
   setFont(FONT_DEFAULT);
   setCodeFont(CODE_FONT_DEFAULT);
-  setColor("green");
+  setColor("pink");
   document.getElementById("universe").style.display = "block";
   document.getElementById("snow").style.display = "none";
 
@@ -1161,7 +1164,7 @@ function reset() {
   resetBg_();
   changeLight(true);
 
-  document.getElementById("green").checked = true;
+  document.getElementById("pink").checked = true;
   document.getElementById("universeSet").checked = true;
   document.getElementById("fpson").checked = true;
   document.getElementById("rightSideSet").checked = true;

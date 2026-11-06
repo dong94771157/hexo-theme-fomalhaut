@@ -33,7 +33,7 @@
   else { var bfv = ls("bgFilterVal"); if (bfv) { tag("bgFilterParam", ":root{--bg-filter:" + bfv + ";}"); } }
   // 4) 主题色
   var cmap = { red: "rgb(239, 90, 90)", orange: "rgb(228, 149, 66)", yellow: "rgb(194, 205, 90)", purple: "rgb(205, 90, 195)", purepurple: "rgb(147, 90, 205)", blue: "rgb(102, 204, 255)", puregreen: "rgb(90, 205, 130)", green: "rgb(57, 197, 187)", pink: "rgb(237, 112, 155)", black: "rgb(45, 45, 45)", darkblue: "rgb(97, 100, 159)", heoblue: "rgb(66, 90, 239)", gray: "rgb(150, 150, 150)" };
-  var tc = def(ls("themeColor"), "green");
+  var tc = def(ls("themeColor"), "pink");
   if (cmap[tc]) { tag("themeColor", ":root{--theme-color:" + cmap[tc] + " !important}"); }
   // 5) 字体
   var ft = def(ls("font"), "LXGW");
