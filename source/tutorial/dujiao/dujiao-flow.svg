@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#8b5cf6"/>
+    </marker>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1200" height="630" fill="#f8fafc"/>
+
+  <!-- 标题 -->
+  <text x="600" y="54" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="26" font-weight="bold" fill="#0f172a">Dujiao-Next Docker Compose 部署六步走</text>
+  <text x="600" y="82" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">从零到上线：全程约 10 分钟，SQLite + Redis 双容器方案</text>
+
+  <!-- 步骤1: 安装 Docker -->
+  <g filter="url(#sh)">
+    <rect x="70" y="120" width="330" height="170" rx="12" fill="#ffffff"/>
+  </g>
+  <circle cx="104" cy="154" r="18" fill="#8b5cf6"/>
+  <text x="104" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">1</text>
+  <text x="134" y="160" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">安装 Docker 与 Compose</text>
+  <rect x="90" y="182" width="290" height="34" rx="6" fill="#1e293b"/>
+  <text x="102" y="204" font-family="Consolas, monospace" font-size="12" fill="#86efac">curl -fsSL get.docker.com | sh</text>
+  <text x="90" y="244" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">同时安装 docker-compose-plugin，</text>
+  <text x="90" y="264" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">用 docker compose 子命令管理服务。</text>
+
+  <!-- 箭头 1→2 -->
+  <line x1="404" y1="205" x2="452" y2="205" stroke="#8b5cf6" stroke-width="3" marker-end="url(#arr)"/>
+
+  <!-- 步骤2: 下载部署文件 -->
+  <g filter="url(#sh)">
+    <rect x="460" y="120" width="330" height="170" rx="12" fill="#ffffff"/>
+  </g>
+  <circle cx="494" cy="154" r="18" fill="#8b5cf6"/>
+  <text x="494" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">2</text>
+  <text x="524" y="160" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">下载部署文件</text>
+  <rect x="480" y="182" width="290" height="34" rx="6" fill="#1e293b"/>
+  <text x="492" y="204" font-family="Consolas, monospace" font-size="12" fill="#86efac">git clone dujiao-next/dujiao-next</text>
+  <text x="480" y="244" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">取 docker/docker-compose.yml、</text>
+  <text x="480" y="264" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">.env 与 config/config.yml.example。</text>
+
+  <!-- 箭头 2→3 -->
+  <line x1="794" y1="205" x2="842" y2="205" stroke="#8b5cf6" stroke-width="3" marker-end="url(#arr)"/>
+
+  <!-- 步骤3: 修改配置与密钥 -->
+  <g filter="url(#sh)">
+    <rect x="850" y="120" width="330" height="170" rx="12" fill="#ffffff"/>
+  </g>
+  <circle cx="884" cy="154" r="18" fill="#f59e0b"/>
+  <text x="884" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">3</text>
+  <text x="914" y="160" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">改密钥与后台路径</text>
+  <rect x="870" y="182" width="290" height="34" rx="6" fill="#1e293b"/>
+  <text x="882" y="204" font-family="Consolas, monospace" font-size="12" fill="#fde68a">openssl rand -hex 32 × 3</text>
+  <text x="870" y="244" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#b45309">⚠ 填入 app / jwt / user_jwt 三个</text>
+  <text x="870" y="264" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#b45309">secret，并修改 web.admin_path</text>
+
+  <!-- 箭头 3→4 (向下) -->
+  <line x1="1015" y1="294" x2="1015" y2="336" stroke="#8b5cf6" stroke-width="3" marker-end="url(#arr)"/>
+
+  <!-- 步骤4: 启动容器 -->
+  <g filter="url(#sh)">
+    <rect x="850" y="344" width="330" height="170" rx="12" fill="#ffffff"/>
+  </g>
+  <circle cx="884" cy="378" r="18" fill="#8b5cf6"/>
+  <text x="884" y="384" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">4</text>
+  <text x="914" y="384" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">启动容器</text>
+  <rect x="870" y="406" width="290" height="34" rx="6" fill="#1e293b"/>
+  <text x="882" y="428" font-family="Consolas, monospace" font-size="12" fill="#86efac">docker compose up -d</text>
+  <text x="870" y="468" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">首次启动自动建表并初始化，</text>
+  <text x="870" y="488" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">日志输出随机管理员密码（仅一次）。</text>
+
+  <!-- 箭头 4→5 (向左) -->
+  <line x1="846" y1="429" x2="798" y2="429" stroke="#8b5cf6" stroke-width="3" marker-end="url(#arr)"/>
+
+  <!-- 步骤5: 验证服务 -->
+  <g filter="url(#sh)">
+    <rect x="460" y="344" width="330" height="170" rx="12" fill="#ffffff"/>
+  </g>
+  <circle cx="494" cy="378" r="18" fill="#22c55e"/>
+  <text x="494" y="384" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">5</text>
+  <text x="524" y="384" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">验证服务</text>
+  <rect x="480" y="406" width="290" height="34" rx="6" fill="#1e293b"/>
+  <text x="492" y="428" font-family="Consolas, monospace" font-size="12" fill="#86efac">curl 127.0.0.1:8080/health</text>
+  <text x="480" y="468" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">日志出现 Embedded SPAs 字样即成功；</text>
+  <text x="480" y="488" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">浏览器访问 127.0.0.1:8080 看到前台。</text>
+
+  <!-- 箭头 5→6 (向左) -->
+  <line x1="456" y1="429" x2="408" y2="429" stroke="#8b5cf6" stroke-width="3" marker-end="url(#arr)"/>
+
+  <!-- 步骤6: Nginx + HTTPS -->
+  <g filter="url(#sh)">
+    <rect x="70" y="344" width="330" height="170" rx="12" fill="#ffffff"/>
+  </g>
+  <circle cx="104" cy="378" r="18" fill="#2563eb"/>
+  <text x="104" y="384" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">6</text>
+  <text x="134" y="384" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">Nginx 反代 + HTTPS</text>
+  <rect x="90" y="406" width="290" height="34" rx="6" fill="#1e293b"/>
+  <text x="102" y="428" font-family="Consolas, monospace" font-size="12" fill="#93c5fd">proxy_pass 127.0.0.1:8080</text>
+  <text x="90" y="468" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">certbot 签发证书，绑定域名，</text>
+  <text x="90" y="488" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">正式对外提供服务。</text>
+
+  <!-- 底部说明 -->
+  <rect x="70" y="556" width="1110" height="44" rx="10" fill="#f5f3ff" stroke="#ddd6fe"/>
+  <text x="625" y="583" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#6d28d9">升级只需改 .env 中 TAG 为新版本号 → docker compose pull → docker compose up -d，数据卷自动保留</text>
+</svg>

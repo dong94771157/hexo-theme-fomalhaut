@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="btn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1200" height="630" fill="#e2e8f0"/>
+
+  <!-- 浏览器窗口 -->
+  <g filter="url(#sh)">
+    <rect x="40" y="36" width="1120" height="560" rx="14" fill="#ffffff"/>
+  </g>
+  <!-- 浏览器顶栏 -->
+  <rect x="40" y="36" width="1120" height="46" rx="14" fill="#f1f5f9"/>
+  <rect x="40" y="68" width="1120" height="14" fill="#f1f5f9"/>
+  <circle cx="70" cy="59" r="7" fill="#ef4444"/>
+  <circle cx="94" cy="59" r="7" fill="#f59e0b"/>
+  <circle cx="118" cy="59" r="7" fill="#22c55e"/>
+  <rect x="300" y="47" width="600" height="24" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+  <circle cx="316" cy="59" r="5" fill="#22c55e"/>
+  <rect x="328" y="55" width="10" height="8" rx="2" fill="#94a3b8"/>
+  <text x="350" y="63" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#475569">https://shop.example.com/</text>
+
+  <!-- 站点导航 -->
+  <rect x="40" y="82" width="1120" height="56" fill="#1e293b"/>
+  <rect x="72" y="98" width="28" height="24" rx="6" fill="#8b5cf6"/>
+  <text x="86" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">D</text>
+  <text x="112" y="117" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="bold" fill="#ffffff">独角数卡 Next</text>
+  <g font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#cbd5e1">
+    <text x="700" y="117">首页</text>
+    <text x="760" y="117">商品分类</text>
+    <text x="856" y="117">订单查询</text>
+    <text x="948" y="117">公告</text>
+  </g>
+  <rect x="1020" y="98" width="108" height="26" rx="13" fill="#8b5cf6"/>
+  <text x="1074" y="116" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#ffffff">登录 / 注册</text>
+
+  <!-- Hero 横幅 -->
+  <rect x="72" y="158" width="1056" height="86" rx="12" fill="url(#hero)"/>
+  <text x="120" y="196" font-family="Microsoft YaHei, sans-serif" font-size="22" font-weight="bold" fill="#ffffff">自动发卡 · 7×24 小时无人值守</text>
+  <text x="120" y="226" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#ddd6fe">支付成功秒级发货，卡密自动发送至订单页与邮箱</text>
+  <rect x="940" y="184" width="150" height="36" rx="18" fill="#ffffff" opacity="0.95"/>
+  <text x="1015" y="207" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#6d28d9">立即选购 →</text>
+
+  <!-- 分类标签 -->
+  <g font-family="Microsoft YaHei, sans-serif" font-size="14">
+    <rect x="72" y="266" width="86" height="32" rx="16" fill="#7c3aed"/>
+    <text x="115" y="287" text-anchor="middle" fill="#ffffff" font-weight="bold">全部</text>
+    <rect x="170" y="266" width="110" height="32" rx="16" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="225" y="287" text-anchor="middle" fill="#475569">会员账号</text>
+    <rect x="292" y="266" width="110" height="32" rx="16" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="347" y="287" text-anchor="middle" fill="#475569">充值卡密</text>
+    <rect x="414" y="266" width="110" height="32" rx="16" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="469" y="287" text-anchor="middle" fill="#475569">软件授权</text>
+  </g>
+
+  <!-- 商品卡片 1 -->
+  <g filter="url(#sh)">
+    <rect x="72" y="318" width="330" height="230" rx="12" fill="#ffffff"/>
+  </g>
+  <rect x="72" y="318" width="330" height="96" rx="12" fill="#ede9fe"/>
+  <rect x="72" y="398" width="330" height="16" fill="#ede9fe"/>
+  <circle cx="140" cy="366" r="30" fill="#8b5cf6"/>
+  <text x="140" y="373" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff">GPT</text>
+  <rect x="96" y="332" width="60" height="22" rx="11" fill="#f59e0b"/>
+  <text x="126" y="347" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#ffffff">热销</text>
+  <text x="96" y="440" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">ChatGPT Plus 月卡代充</text>
+  <text x="96" y="466" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">官方直充 · 当天到账 · 售后保障</text>
+  <text x="96" y="502" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#dc2626">¥45.00</text>
+  <rect x="286" y="484" width="92" height="32" rx="8" fill="url(#btn)"/>
+  <text x="332" y="505" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">立即购买</text>
+  <text x="96" y="532" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#16a34a">● 库存 128 件</text>
+
+  <!-- 商品卡片 2 -->
+  <g filter="url(#sh)">
+    <rect x="435" y="318" width="330" height="230" rx="12" fill="#ffffff"/>
+  </g>
+  <rect x="435" y="318" width="330" height="96" rx="12" fill="#dbeafe"/>
+  <rect x="435" y="398" width="330" height="16" fill="#dbeafe"/>
+  <circle cx="503" cy="366" r="30" fill="#2563eb"/>
+  <text x="503" y="373" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">STEAM</text>
+  <rect x="459" y="332" width="60" height="22" rx="11" fill="#3b82f6"/>
+  <text x="489" y="347" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#ffffff">推荐</text>
+  <text x="459" y="440" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">Steam 礼品卡 $20</text>
+  <text x="459" y="466" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">全球区可用 · 卡密直发 · 可开票</text>
+  <text x="459" y="502" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#dc2626">¥138.00</text>
+  <rect x="649" y="484" width="92" height="32" rx="8" fill="url(#btn)"/>
+  <text x="695" y="505" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">立即购买</text>
+  <text x="459" y="532" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#16a34a">● 库存 56 件</text>
+
+  <!-- 商品卡片 3 -->
+  <g filter="url(#sh)">
+    <rect x="798" y="318" width="330" height="230" rx="12" fill="#ffffff"/>
+  </g>
+  <rect x="798" y="318" width="330" height="96" rx="12" fill="#fee2e2"/>
+  <rect x="798" y="398" width="330" height="16" fill="#fee2e2"/>
+  <circle cx="866" cy="366" r="30" fill="#dc2626"/>
+  <text x="866" y="373" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">NF</text>
+  <rect x="822" y="332" width="60" height="22" rx="11" fill="#dc2626"/>
+  <text x="852" y="347" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#ffffff">新品</text>
+  <text x="822" y="440" font-family="Microsoft YaHei, sans-serif" font-size="17" font-weight="bold" fill="#1e293b">Netflix 会员月卡</text>
+  <text x="822" y="466" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">4K 高清 · 独享账号 · 即买即发</text>
+  <text x="822" y="502" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#dc2626">¥25.00</text>
+  <rect x="1012" y="484" width="92" height="32" rx="8" fill="url(#btn)"/>
+  <text x="1058" y="505" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">立即购买</text>
+  <text x="822" y="532" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#16a34a">● 库存 302 件</text>
+
+  <!-- 底部标注 -->
+  <rect x="40" y="566" width="1120" height="30" fill="#f8fafc"/>
+  <text x="600" y="586" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">前台界面示意（Vue 3 + Tailwind CSS v4）：商品列表 · 分类筛选 · 订单查询 · 邮箱收卡</text>
+</svg>
