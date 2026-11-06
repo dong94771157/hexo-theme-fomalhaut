@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde68a"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#dc2626"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 桌面背景 -->
+  <rect width="1200" height="630" fill="#0c0a09"/>
+
+  <!-- 登录器窗口 -->
+  <g filter="url(#sh)">
+    <rect x="140" y="30" width="920" height="570" rx="8" fill="#1c1917"/>
+  </g>
+  <rect x="140" y="30" width="920" height="570" rx="8" fill="none" stroke="#a16207" stroke-width="2"/>
+
+  <!-- 顶部标题 -->
+  <rect x="140" y="30" width="920" height="64" rx="8" fill="#292524"/>
+  <rect x="140" y="70" width="920" height="24" fill="#292524"/>
+  <text x="600" y="72" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="26" font-weight="bold" fill="url(#gold)">热血玛法 · 传奇登录器</text>
+  <circle cx="1020" cy="62" r="8" fill="#78716c"/>
+  <line x1="1016" y1="58" x2="1024" y2="66" stroke="#1c1917" stroke-width="2"/>
+  <line x1="1024" y1="58" x2="1016" y2="66" stroke="#1c1917" stroke-width="2"/>
+
+  <!-- 左侧：宣传区 -->
+  <rect x="160" y="110" width="420" height="360" rx="6" fill="#0f0e0d" stroke="#44403c"/>
+  <!-- 模拟游戏原画色块 -->
+  <rect x="160" y="110" width="420" height="360" rx="6" fill="#7f1d1d" opacity="0.35"/>
+  <ellipse cx="370" cy="250" rx="150" ry="120" fill="#991b1b" opacity="0.4"/>
+  <ellipse cx="300" cy="330" rx="90" ry="60" fill="#451a03" opacity="0.6"/>
+  <text x="370" y="200" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="34" font-weight="bold" fill="#fbbf24">沙城争霸</text>
+  <text x="370" y="240" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="16" fill="#fde68a">今晚 20:00 攻沙开启</text>
+  <text x="370" y="290" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#fecaca">新版本「龙争虎斗」资料片上线</text>
+  <text x="370" y="320" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#fecaca">新增地图 · 新增装备 · 合击觉醒</text>
+
+  <!-- 右侧：服务器列表 -->
+  <rect x="600" y="110" width="440" height="360" rx="6" fill="#0f0e0d" stroke="#44403c"/>
+  <text x="620" y="140" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="bold" fill="#fbbf24">选择服务器</text>
+  <line x1="620" y1="150" x2="1020" y2="150" stroke="#44403c"/>
+
+  <!-- 服务器条目 -->
+  <g font-family="Microsoft YaHei, sans-serif" font-size="14">
+    <rect x="620" y="164" width="400" height="44" rx="6" fill="#292524" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="644" cy="186" r="6" fill="#22c55e"/>
+    <text x="660" y="191" fill="#fde68a" font-weight="bold">一区 · 玛法盛世</text>
+    <text x="940" y="191" text-anchor="end" fill="#86efac">流畅</text>
+    <text x="990" y="191" text-anchor="end" fill="#a8a29e">1280 人</text>
+
+    <rect x="620" y="216" width="400" height="44" rx="6" fill="#292524"/>
+    <circle cx="644" cy="238" r="6" fill="#22c55e"/>
+    <text x="660" y="243" fill="#e7e5e4">二区 · 龙争虎斗</text>
+    <text x="940" y="243" text-anchor="end" fill="#86efac">流畅</text>
+    <text x="990" y="243" text-anchor="end" fill="#a8a29e">864 人</text>
+
+    <rect x="620" y="268" width="400" height="44" rx="6" fill="#292524"/>
+    <circle cx="644" cy="290" r="6" fill="#eab308"/>
+    <text x="660" y="295" fill="#e7e5e4">三区 · 热血回归</text>
+    <text x="940" y="295" text-anchor="end" fill="#fde047">繁忙</text>
+    <text x="990" y="295" text-anchor="end" fill="#a8a29e">2015 人</text>
+
+    <rect x="620" y="320" width="400" height="44" rx="6" fill="#292524"/>
+    <circle cx="644" cy="342" r="6" fill="#ef4444"/>
+    <text x="660" y="347" fill="#e7e5e4">四区 · 巅峰对决</text>
+    <text x="940" y="347" text-anchor="end" fill="#fca5a5">爆满</text>
+    <text x="990" y="347" text-anchor="end" fill="#a8a29e">3560 人</text>
+
+    <rect x="620" y="372" width="400" height="44" rx="6" fill="#292524"/>
+    <circle cx="644" cy="394" r="6" fill="#22c55e"/>
+    <text x="660" y="399" fill="#e7e5e4">五区 · 新服预热</text>
+    <text x="940" y="399" text-anchor="end" fill="#86efac">新服</text>
+    <text x="990" y="399" text-anchor="end" fill="#a8a29e">11/8 开放</text>
+  </g>
+
+  <!-- 补丁更新进度条 -->
+  <rect x="160" y="490" width="880" height="70" rx="8" fill="#292524" stroke="#44403c"/>
+  <text x="180" y="514" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#fde68a">正在更新补丁：WilRes\PrgUse.wil (3/8)</text>
+  <text x="1000" y="514" text-anchor="end" font-family="Arial" font-size="14" font-weight="bold" fill="#fbbf24">68%</text>
+  <!-- 进度条背景 -->
+  <rect x="180" y="528" width="840" height="18" rx="9" fill="#0f0e0d" stroke="#44403c"/>
+  <!-- 进度条填充 -->
+  <rect x="180" y="528" width="571" height="18" rx="9" fill="url(#bar)"/>
+  <text x="600" y="541" text-anchor="middle" font-family="Arial" font-size="11" fill="#ffffff" font-weight="bold">12.4 MB / 18.2 MB  ·  剩余 00:12</text>
+
+  <!-- 底部按钮 -->
+  <rect x="160" y="576" width="200" height="18" rx="4" fill="#0f0e0d"/>
+  <text x="260" y="589" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#a8a29e">版本 v2.3.1  ·  补丁校验 MD5 通过</text>
+  <rect x="820" y="570" width="110" height="26" rx="13" fill="#292524" stroke="#78716c"/>
+  <text x="875" y="587" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#d6d3d1">设置</text>
+  <rect x="940" y="568" width="110" height="30" rx="15" fill="url(#gold)"/>
+  <text x="995" y="588" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="bold" fill="#1c1917">开始游戏</text>
+</svg>
