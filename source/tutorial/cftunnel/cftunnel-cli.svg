@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="termbar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2d2d2d"/>
+      <stop offset="1" stop-color="#1e1e1e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 终端窗口 -->
+  <rect width="1200" height="630" rx="10" fill="#1e1e1e"/>
+  <rect x="0" y="0" width="1200" height="38" rx="10" fill="url(#termbar)"/>
+  <rect x="0" y="28" width="1200" height="10" fill="url(#termbar)"/>
+  <circle cx="22" cy="19" r="6" fill="#ef4444"/>
+  <circle cx="42" cy="19" r="6" fill="#f59e0b"/>
+  <circle cx="62" cy="19" r="6" fill="#22c55e"/>
+  <text x="600" y="24" text-anchor="middle" font-family="Consolas, monospace" font-size="13" fill="#888888">root@home-lab: ~/cloudflared</text>
+
+  <g font-family="Consolas, 'Courier New', monospace" font-size="14">
+    <!-- 步骤1: 下载 -->
+    <text x="28" y="72" fill="#6a9955"># 1. 安装 cloudflared（Debian/Ubuntu）</text>
+    <text x="28" y="96"><tspan fill="#4ec9b0">root@home-lab</tspan><tspan fill="#cccccc">:</tspan><tspan fill="#569cd6">~</tspan><tspan fill="#cccccc"># </tspan><tspan fill="#dcdcaa">wget</tspan><tspan fill="#cccccc"> https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb</tspan></text>
+    <text x="28" y="118" fill="#9cdcfe">cloudflared-linux-amd64.deb   100%[=====================>]  48.2M  3.1MB/s</text>
+    <text x="28" y="140"><tspan fill="#4ec9b0">root@home-lab</tspan><tspan fill="#cccccc">:</tspan><tspan fill="#569cd6">~</tspan><tspan fill="#cccccc"># </tspan><tspan fill="#dcdcaa">dpkg</tspan><tspan fill="#cccccc"> -i cloudflared-linux-amd64.deb</tspan></text>
+    <text x="28" y="162" fill="#9cdcfe">正在解压 cloudflared (2026.10.1) ...</text>
+
+    <text x="28" y="196" fill="#6a9955"># 2. 登录（会弹浏览器授权）</text>
+    <text x="28" y="220"><tspan fill="#4ec9b0">root@home-lab</tspan><tspan fill="#cccccc">:</tspan><tspan fill="#569cd6">~</tspan><tspan fill="#cccccc"># </tspan><tspan fill="#dcdcaa">cloudflared</tspan><tspan fill="#cccccc"> tunnel login</tspan></text>
+    <text x="28" y="242" fill="#9cdcfe">A browser window should have opened at the URL:</text>
+    <text x="28" y="264" fill="#4ec9b0">https://dash.cloudflare.com/argotunnel?callback=...</text>
+    <text x="28" y="286" fill="#9cdcfe">You have successfully logged in.</text>
+    <text x="28" y="308" fill="#ce9178">cert.pem saved to /root/.cloudflared/cert.pem</text>
+
+    <text x="28" y="342" fill="#6a9955"># 3. 创建隧道</text>
+    <text x="28" y="366"><tspan fill="#4ec9b0">root@home-lab</tspan><tspan fill="#cccccc">:</tspan><tspan fill="#569cd6">~</tspan><tspan fill="#cccccc"># </tspan><tspan fill="#dcdcaa">cloudflared</tspan><tspan fill="#cccccc"> tunnel create home-lab</tspan></text>
+    <text x="28" y="388" fill="#9cdcfe">Created tunnel home-lab with id</text>
+    <text x="28" y="410" fill="#ce9178">a1b2c3d4-e5f6-7890-abcd-ef1234567890</text>
+    <text x="28" y="432" fill="#9cdcfe">Tunnel credentials written to </text>
+    <text x="28" y="454" fill="#ce9178">/root/.cloudflared/a1b2c3d4-e5f6-7890-abcd-ef1234567890.json</text>
+
+    <text x="28" y="488" fill="#6a9955"># 4. 绑定域名路由（DNS 自动创建 CNAME）</text>
+    <text x="28" y="512"><tspan fill="#4ec9b0">root@home-lab</tspan><tspan fill="#cccccc">:</tspan><tspan fill="#569cd6">~</tspan><tspan fill="#cccccc"># </tspan><tspan fill="#dcdcaa">cloudflared</tspan><tspan fill="#cccccc"> tunnel route dns home-lab nas.ldwl.dpdns.org</tspan></text>
+    <text x="28" y="534" fill="#9cdcfe">Added CNAME nas.ldwl.dpdns.org which will route to this tunnel home-lab</text>
+
+    <text x="28" y="568" fill="#6a9955"># 5. 写好 config.yml 后启动</text>
+    <text x="28" y="592"><tspan fill="#4ec9b0">root@home-lab</tspan><tspan fill="#cccccc">:</tspan><tspan fill="#569cd6">~</tspan><tspan fill="#cccccc"># </tspan><tspan fill="#dcdcaa">cloudflared</tspan><tspan fill="#cccccc"> tunnel run home-lab</tspan></text>
+    <text x="28" y="614" fill="#9cdcfe">INF Connection ... registered connIndex=0 ... location=hkg</text>
+  </g>
+
+  <!-- 光标 -->
+  <rect x="420" y="602" width="9" height="16" fill="#cccccc" opacity="0.8"/>
+</svg>

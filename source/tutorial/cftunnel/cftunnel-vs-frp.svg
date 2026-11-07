@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="bad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ef4444"/>
+      <stop offset="1" stop-color="#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#b45309"/>
+    </linearGradient>
+    <linearGradient id="good" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#15803d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg2)"/>
+
+  <text x="600" y="60" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="32" font-weight="bold" fill="#f1f5f9">三种内网穿透方案对比</text>
+  <text x="600" y="94" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#94a3b8">为什么说 Cloudflare Tunnel 是个人开发者最省心的选择</text>
+
+  <!-- 列头 -->
+  <g font-family="Microsoft YaHei, sans-serif" font-weight="bold" text-anchor="middle">
+    <rect x="100" y="120" width="200" height="46" rx="8" fill="#334155"/>
+    <text x="200" y="149" font-size="17" fill="#e2e8f0">对比维度</text>
+    <rect x="330" y="120" width="250" height="46" rx="8" fill="url(#bad)"/>
+    <text x="455" y="149" font-size="17" fill="#ffffff">路由器端口映射</text>
+    <rect x="610" y="120" width="250" height="46" rx="8" fill="url(#mid)"/>
+    <text x="735" y="149" font-size="17" fill="#ffffff">frp 自建</text>
+    <rect x="890" y="120" width="250" height="46" rx="8" fill="url(#good)"/>
+    <text x="1015" y="149" font-size="17" fill="#ffffff">Cloudflare Tunnel</text>
+  </g>
+
+  <!-- 行数据 -->
+  <g font-family="Microsoft YaHei, sans-serif" font-size="14">
+    <!-- 行1: 公网IP要求 -->
+    <rect x="100" y="178" width="200" height="56" rx="6" fill="#1e293b"/>
+    <text x="200" y="212" text-anchor="middle" fill="#cbd5e1">需要公网 IP</text>
+    <rect x="330" y="178" width="250" height="56" rx="6" fill="#2a1518"/>
+    <text x="455" y="212" text-anchor="middle" fill="#fca5a5">必须有（很多宽带已无）</text>
+    <rect x="610" y="178" width="250" height="56" rx="6" fill="#2a2215"/>
+    <text x="735" y="212" text-anchor="middle" fill="#fcd34d">不需要，但需公网服务器</text>
+    <rect x="890" y="178" width="250" height="56" rx="6" fill="#0e2a1a"/>
+    <text x="1015" y="212" text-anchor="middle" fill="#86efac">不需要</text>
+
+    <!-- 行2: 端口暴露 -->
+    <rect x="100" y="242" width="200" height="56" rx="6" fill="#1e293b"/>
+    <text x="200" y="276" text-anchor="middle" fill="#cbd5e1">开放端口</text>
+    <rect x="330" y="242" width="250" height="56" rx="6" fill="#2a1518"/>
+    <text x="455" y="276" text-anchor="middle" fill="#fca5a5">要在路由器开端口</text>
+    <rect x="610" y="242" width="250" height="56" rx="6" fill="#2a2215"/>
+    <text x="735" y="276" text-anchor="middle" fill="#fcd34d">服务器开端口</text>
+    <rect x="890" y="242" width="250" height="56" rx="6" fill="#0e2a1a"/>
+    <text x="1015" y="276" text-anchor="middle" fill="#86efac">零端口暴露</text>
+
+    <!-- 行3: HTTPS -->
+    <rect x="100" y="306" width="200" height="56" rx="6" fill="#1e293b"/>
+    <text x="200" y="340" text-anchor="middle" fill="#cbd5e1">HTTPS 证书</text>
+    <rect x="330" y="306" width="250" height="56" rx="6" fill="#2a1518"/>
+    <text x="455" y="340" text-anchor="middle" fill="#fca5a5">自己申请+续期</text>
+    <rect x="610" y="306" width="250" height="56" rx="6" fill="#2a2215"/>
+    <text x="735" y="340" text-anchor="middle" fill="#fcd34d">自己申请+续期</text>
+    <rect x="890" y="306" width="250" height="56" rx="6" fill="#0e2a1a"/>
+    <text x="1015" y="340" text-anchor="middle" fill="#86efac">自动签发+续期</text>
+
+    <!-- 行4: 成本 -->
+    <rect x="100" y="370" width="200" height="56" rx="6" fill="#1e293b"/>
+    <text x="200" y="404" text-anchor="middle" fill="#cbd5e1">成本</text>
+    <rect x="330" y="370" width="250" height="56" rx="6" fill="#2a1518"/>
+    <text x="455" y="404" text-anchor="middle" fill="#fca5a5">免费但风险高</text>
+    <rect x="610" y="370" width="250" height="56" rx="6" fill="#2a2215"/>
+    <text x="735" y="404" text-anchor="middle" fill="#fcd34d">需一台云服务器</text>
+    <rect x="890" y="370" width="250" height="56" rx="6" fill="#0e2a1a"/>
+    <text x="1015" y="404" text-anchor="middle" fill="#86efac">免费额度够用</text>
+
+    <!-- 行5: DDoS -->
+    <rect x="100" y="434" width="200" height="56" rx="6" fill="#1e293b"/>
+    <text x="200" y="468" text-anchor="middle" fill="#cbd5e1">DDoS / WAF 防护</text>
+    <rect x="330" y="434" width="250" height="56" rx="6" fill="#2a1518"/>
+    <text x="455" y="468" text-anchor="middle" fill="#fca5a5">裸奔，IP 直接暴露</text>
+    <rect x="610" y="434" width="250" height="56" rx="6" fill="#2a2215"/>
+    <text x="735" y="468" text-anchor="middle" fill="#fcd34d">无，需额外配</text>
+    <rect x="890" y="434" width="250" height="56" rx="6" fill="#0e2a1a"/>
+    <text x="1015" y="468" text-anchor="middle" fill="#86efac">企业级防护自带</text>
+
+    <!-- 行6: 运维 -->
+    <rect x="100" y="498" width="200" height="56" rx="6" fill="#1e293b"/>
+    <text x="200" y="532" text-anchor="middle" fill="#cbd5e1">运维复杂度</text>
+    <rect x="330" y="498" width="250" height="56" rx="6" fill="#2a1518"/>
+    <text x="455" y="532" text-anchor="middle" fill="#fca5a5">低但不安全</text>
+    <rect x="610" y="498" width="250" height="56" rx="6" fill="#2a2215"/>
+    <text x="735" y="532" text-anchor="middle" fill="#fcd34d">双端配置+保活</text>
+    <rect x="890" y="498" width="250" height="56" rx="6" fill="#0e2a1a"/>
+    <text x="1015" y="532" text-anchor="middle" fill="#86efac">装好就完事</text>
+  </g>
+
+  <!-- 底部结论 -->
+  <rect x="200" y="576" width="800" height="40" rx="20" fill="#0b3b24" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="600" y="601" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#86efac">结论：没有公网 IP / 不想开端口 / 不想买服务器 → Cloudflare Tunnel 是最优解</text>
+</svg>
