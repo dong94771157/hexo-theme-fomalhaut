@@ -8,9 +8,13 @@ tags:
   - 内网穿透
   - cloudflared
   - 自建服务
-cover: '/tutorial/cftunnel/cftunnel-arch.svg'
-description: 家里跑了 NAS、发卡站、开发环境，出门在外想访问却没公网 IP？Cloudflare Tunnel 让内网机器主动外连 CF 边缘节点，零端口映射、零公网 IP、自带 HTTPS 和 DDoS 防护，免费额度个人完全够用。本篇从 30 秒极速试用到生产级常驻部署，附 Docker、SSH/RDP 远程、控制台演示图与踩坑清单。
+cover: /tutorial/cftunnel/cftunnel-arch.svg
+description: >-
+  家里跑了 NAS、发卡站、开发环境，出门在外想访问却没公网 IP？Cloudflare Tunnel 让内网机器主动外连 CF 边缘节点，零端口映射、零公网
+  IP、自带 HTTPS 和 DDoS 防护，免费额度个人完全够用。本篇从 30 秒极速试用到生产级常驻部署，附 Docker、SSH/RDP
+  远程、控制台演示图与踩坑清单。
 comments: true
+abbrlink: af73f4b8
 date: 2026-11-07 14:00:00
 updated: 2026-11-07 14:00:00
 ---

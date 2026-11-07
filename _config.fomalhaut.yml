@@ -1232,6 +1232,13 @@ inject:
     # 换成从 --theme-color 派生；电脑端作者卡与手机抽屉头像共用同一套动画。
     # 回滚：删掉这一行即可（备份 bak/20261007-avatar-glow/before/_config.fomalhaut.yml）
     - <link rel="stylesheet" href="/css/avatar-glow.css?v=20261004q">
+    # ── 阿里云大使推广挂件（头像卡下方）──────────────────────────────────────────
+    # source/css/aliyun-ad.css：侧栏头像卡下方的「阿里云优选」广告卡样式。
+    # 挂件模板 themes/fomalhaut/layout/includes/widget/card_aliyun_ad.pug（index.pug 已在
+    # card_author 之后引入）；广告图 source/assets/ad/aliyun-{ecs,domain,coupon}.svg。
+    # 链接目前为官方通用页；拿到大使 userCode 后改 pug 里三条链接末尾加 ?userCode=xxxxx。
+    # 回滚：删掉这一行 + index.pug 里两处 card_aliyun_ad partial 即可。
+    - <link rel="stylesheet" href="/css/aliyun-ad.css?v=20261107">
     # ── 「旧时光」/site/time/ 时间轴改版（站点独立样式 + 脚本，不改主题源码）──────────
     # source/css/timeline-archive.css 负责外观：年份分组（大号年份 + 细线 + 条数）、
     # 左侧日期轨 + 右侧卡片、卡片左侧主题色装饰条、有序列表序号改成圆角小方块、

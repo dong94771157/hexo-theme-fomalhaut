@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="app" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="user" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="nginx" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#15803d"/>
+    </linearGradient>
+    <linearGradient id="redis" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ef4444"/>
+      <stop offset="1" stop-color="#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="pay" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6821F"/>
+      <stop offset="1" stop-color="#c2570b"/>
+    </linearGradient>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#22c55e"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <text x="600" y="62" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="bold" fill="#f1f5f9">独角数卡 Next · Docker Compose 部署架构</text>
+  <text x="600" y="96" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="16" fill="#94a3b8">v1.4.0 起前端经 go:embed 内嵌进后端二进制：单进程、单端口 8080、单域名</text>
+
+  <!-- 买家 -->
+  <g filter="url(#sh)">
+    <circle cx="120" cy="300" r="50" fill="url(#user)"/>
+    <circle cx="120" cy="284" r="16" fill="#dbeafe"/>
+    <path d="M95 330 C95 308, 145 308, 145 330 Z" fill="#dbeafe"/>
+  </g>
+  <text x="120" y="382" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="bold" fill="#e2e8f0">买家</text>
+  <text x="120" y="406" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">浏览器下单</text>
+
+  <!-- 箭头1: 买家 -> Nginx -->
+  <line x1="176" y1="300" x2="278" y2="300" stroke="#94a3b8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="227" y="284" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#cbd5e1">HTTPS</text>
+  <text x="227" y="324" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">域名访问</text>
+
+  <!-- Nginx -->
+  <g filter="url(#sh)">
+    <rect x="288" y="252" width="128" height="96" rx="12" fill="url(#nginx)"/>
+    <text x="352" y="292" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff">Nginx</text>
+    <text x="352" y="316" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#dcfce7">80 / 443</text>
+    <text x="352" y="334" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#dcfce7">TLS 终止</text>
+  </g>
+  <text x="352" y="382" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">反向代理</text>
+
+  <!-- 箭头2: Nginx -> App -->
+  <line x1="424" y1="300" x2="522" y2="300" stroke="#22c55e" stroke-width="3" marker-end="url(#arrG)"/>
+  <text x="473" y="284" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#86efac">proxy_pass</text>
+  <text x="473" y="324" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">127.0.0.1:8080</text>
+
+  <!-- Dujiao-Next 主进程 -->
+  <g filter="url(#sh)">
+    <rect x="532" y="188" width="268" height="224" rx="16" fill="url(#app)"/>
+  </g>
+  <text x="666" y="222" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="20" font-weight="bold" fill="#ffffff">Dujiao-Next</text>
+  <text x="666" y="244" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#ede9fe">Go 1.26 + Gin + GORM · :8080</text>
+  <!-- 内嵌前台 -->
+  <rect x="552" y="262" width="108" height="60" rx="8" fill="#7c3aed" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="606" y="286" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">前台 SPA</text>
+  <text x="606" y="306" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#ddd6fe">/ （Vue3）</text>
+  <!-- 内嵌后台 -->
+  <rect x="672" y="262" width="108" height="60" rx="8" fill="#7c3aed" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="726" y="286" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">后台 SPA</text>
+  <text x="726" y="306" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#ddd6fe">/admin（Vue3）</text>
+  <!-- 核心能力 -->
+  <text x="666" y="346" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#ede9fe">JWT 双域鉴权 · Casbin RBAC</text>
+  <text x="666" y="368" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#ede9fe">自动发卡 · 订单 · 优惠券</text>
+  <text x="666" y="398" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#c4b5fd">go:embed 单二进制交付</text>
+
+  <!-- 箭头3: App -> 支付网关 -->
+  <line x1="806" y1="300" x2="908" y2="300" stroke="#94a3b8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="857" y="284" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#cbd5e1">支付下单</text>
+  <text x="857" y="324" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">异步回调</text>
+
+  <!-- 支付网关 -->
+  <g filter="url(#sh)">
+    <rect x="918" y="228" width="160" height="144" rx="12" fill="url(#pay)"/>
+  </g>
+  <text x="998" y="258" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#ffffff">支付网关</text>
+  <rect x="934" y="272" width="128" height="24" rx="6" fill="#fed7aa"/>
+  <text x="998" y="289" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#9a3412">支付宝 / 微信</text>
+  <rect x="934" y="302" width="128" height="24" rx="6" fill="#fdba74"/>
+  <text x="998" y="319" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#9a3412">易支付 / 码支付</text>
+  <rect x="934" y="332" width="128" height="24" rx="6" fill="#fb923c"/>
+  <text x="998" y="349" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#ffffff">PayPal / USDT</text>
+
+  <!-- 箭头4: App -> 数据库 -->
+  <line x1="620" y1="416" x2="586" y2="460" stroke="#94a3b8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="566" y="440" text-anchor="end" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#cbd5e1">GORM 读写</text>
+
+  <!-- 数据库 -->
+  <g filter="url(#sh)">
+    <ellipse cx="556" cy="492" rx="76" ry="20" fill="#475569"/>
+    <rect x="480" y="462" width="152" height="30" fill="#64748b"/>
+    <ellipse cx="556" cy="462" rx="76" ry="20" fill="#94a3b8"/>
+    <ellipse cx="556" cy="462" rx="58" ry="14" fill="#cbd5e1"/>
+  </g>
+  <text x="556" y="467" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">数据库</text>
+  <text x="556" y="536" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">SQLite（默认）/ PostgreSQL</text>
+  <text x="556" y="556" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">商品 · 订单 · 用户 · 配置</text>
+
+  <!-- 箭头5: App -> Redis -->
+  <line x1="712" y1="416" x2="746" y2="460" stroke="#f87171" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="766" y="440" text-anchor="start" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#fca5a5">asynq 队列</text>
+
+  <!-- Redis -->
+  <g filter="url(#sh)">
+    <rect x="700" y="452" width="104" height="60" rx="10" fill="url(#redis)"/>
+    <text x="752" y="478" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Redis</text>
+    <text x="752" y="498" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#fecaca">缓存 + 异步任务</text>
+  </g>
+  <text x="752" y="536" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">不对外导出端口</text>
+
+  <!-- 底部标注 -->
+  <rect x="150" y="576" width="900" height="40" rx="20" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="601" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#94a3b8">Docker Compose 仅暴露 127.0.0.1:8080，Redis / PostgreSQL 不导出端口，全部流量经 Nginx 统一进入</text>
+</svg>

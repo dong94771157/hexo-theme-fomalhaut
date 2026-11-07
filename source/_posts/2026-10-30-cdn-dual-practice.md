@@ -9,9 +9,12 @@ tags:
   - 容灾
   - 成本优化
   - 运维
-cover: '/tutorial/cdn2/failover.png'
-description: 双 CDN 跑起来之后呢？进阶实战：看懂 97% 命中率的三层请求路径、4 分钟容灾切换演练、月账单省 64% 的流量包混搭算法、只需盯 4 个指标的监控看板，以及一份双云配置对齐基线。
+cover: /tutorial/cdn2/failover.png
+description: >-
+  双 CDN 跑起来之后呢？进阶实战：看懂 97% 命中率的三层请求路径、4 分钟容灾切换演练、月账单省 64% 的流量包混搭算法、只需盯 4
+  个指标的监控看板，以及一份双云配置对齐基线。
 comments: true
+abbrlink: 821f1301
 date: 2026-10-30 07:01:26
 updated: 2026-10-30 07:01:26
 ---

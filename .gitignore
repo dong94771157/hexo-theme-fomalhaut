@@ -27,3 +27,7 @@ bak/
 # 本地素材、检查产物
 images/
 cdn-check/
+
+# ===== 2026-11-07 追加：Cloudflare 本地工具与凭据，不进仓库 =====
+.wrangler/
+.cf-api.ps1

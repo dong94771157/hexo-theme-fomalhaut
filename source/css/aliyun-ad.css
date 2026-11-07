@@ -1,0 +1,74 @@
+/*
+ * source/css/aliyun-ad.css —— 阿里云大使推广挂件样式
+ * 引入：_config.fomalhaut.yml → inject.head 的 <link rel="stylesheet" href="/css/aliyun-ad.css?v=...">
+ * 挂件模板：themes/fomalhaut/layout/includes/widget/card_aliyun_ad.pug（头像卡下方）
+ * 广告图：source/assets/ad/aliyun-{ecs,domain,coupon}.svg
+ * 配色由 --font-color / --card-bg 派生，明暗模式自动跟随；阿里云橙仅用于标题点缀。
+ * 回滚：删掉 inject.head 里对应 <link> 行 + index.pug 里两处 card_aliyun_ad partial 即可。
+ */
+
+/* 头部：云图标 + 标题 + 大使入口 */
+.card-aliyun-ad__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 0.9em;
+}
+
+.card-aliyun-ad__head svg {
+  color: #FF6A00;
+  flex-shrink: 0;
+}
+
+.card-aliyun-ad__title {
+  font-weight: 600;
+  color: var(--font-color);
+  letter-spacing: 0.5px;
+}
+
+.card-aliyun-ad__more {
+  margin-left: auto;
+  font-size: 0.8em;
+  color: var(--font-color);
+  opacity: 0.55;
+  text-decoration: none;
+  transition: opacity 0.25s, color 0.25s;
+}
+
+.card-aliyun-ad__more:hover {
+  opacity: 1;
+  color: #FF6A00;
+}
+
+/* 广告列表：三张图竖排 */
+.card-aliyun-ad__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-aliyun-ad__item {
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+  line-height: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-aliyun-ad__item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 106, 0, 0.18);
+}
+
+.card-aliyun-ad__item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card-aliyun-ad__item:hover img {
+  transform: scale(1.02);
+}
+

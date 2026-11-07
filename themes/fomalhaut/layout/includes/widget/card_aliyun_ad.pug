@@ -1,0 +1,15 @@
+//- 阿里云大使推广挂件（头像卡下方）
+//- 链接目前为官方通用页；拿到大使 userCode 后，在每条链接末尾加 ?userCode=xxxxx 即可计佣金
+.card-widget.card-aliyun-ad
+  .card-aliyun-ad__head
+    svg(aria-hidden="true" viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor")
+      path(d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z")
+    span.card-aliyun-ad__title 阿里云优选
+    a.card-aliyun-ad__more(href="https://promotion.aliyun.com/ntms/yunparter/invite.html" target="_blank" rel="noopener sponsored nofollow" title="成为阿里云大使") 大使入口
+  .card-aliyun-ad__list
+    a.card-aliyun-ad__item(href="https://www.aliyun.com/minisite/goods" target="_blank" rel="noopener sponsored nofollow" title="云服务器ECS 新人专享特惠")
+      img(src=url_for("/assets/ad/aliyun-ecs.svg") alt="云服务器ECS 新人特惠")
+    a.card-aliyun-ad__item(href="https://wanwang.aliyun.com/" target="_blank" rel="noopener sponsored nofollow" title="域名注册首年特惠")
+      img(src=url_for("/assets/ad/aliyun-domain.svg") alt="域名注册首年特惠")
+    a.card-aliyun-ad__item(href="https://promotion.aliyun.com/ntms/yunparter/invite.html" target="_blank" rel="noopener sponsored nofollow" title="新人代金券免费领取")
+      img(src=url_for("/assets/ad/aliyun-coupon.svg") alt="新人代金券免费领取")

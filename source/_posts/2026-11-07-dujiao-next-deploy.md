@@ -8,9 +8,13 @@ tags:
   - Docker
   - 自动发卡
   - 开源项目
-cover: '/tutorial/dujiao/dujiao-arch.svg'
-description: 老牌自动发卡系统独角数卡已于 2026 年 10 月归档停更，官方社区转向全新重写的 Dujiao-Next：Go + Gin 后端、Vue 3 前端、单二进制交付，一个端口同时跑前台与后台。本篇基于最新 v1.5.2，用 Docker Compose（SQLite + Redis）从零部署到 Nginx 上线，附配置详解、安全加固清单与升级姿势。
+cover: /tutorial/dujiao/dujiao-arch.svg
+description: >-
+  老牌自动发卡系统独角数卡已于 2026 年 10 月归档停更，官方社区转向全新重写的 Dujiao-Next：Go + Gin 后端、Vue 3
+  前端、单二进制交付，一个端口同时跑前台与后台。本篇基于最新 v1.5.2，用 Docker Compose（SQLite + Redis）从零部署到
+  Nginx 上线，附配置详解、安全加固清单与升级姿势。
 comments: true
+abbrlink: 9ed1d17c
 date: 2026-11-07 10:00:00
 updated: 2026-11-07 10:00:00
 ---

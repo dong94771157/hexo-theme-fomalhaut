@@ -8,9 +8,12 @@ tags:
   - 腾讯云
   - 性能优化
   - 运维
-cover: '/tutorial/cdn/arch.png'
-description: 单 CDN 的容灾与成本天花板太低？本站真实落地的阿里+腾讯双 CDN 方案：缓存规则对齐、DNSPod 分线路调度、刷新预热流程化，TTFB 下降 90%、源站带宽下降 91%，附完整配置截图与踩坑清单。
+cover: /tutorial/cdn/arch.png
+description: >-
+  单 CDN 的容灾与成本天花板太低？本站真实落地的阿里+腾讯双 CDN 方案：缓存规则对齐、DNSPod 分线路调度、刷新预热流程化，TTFB 下降
+  90%、源站带宽下降 91%，附完整配置截图与踩坑清单。
 comments: true
+abbrlink: '51146891'
 date: 2026-10-30 07:01:14
 updated: 2026-10-30 07:01:14
 ---

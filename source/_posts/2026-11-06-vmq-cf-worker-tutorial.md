@@ -8,9 +8,13 @@ tags:
   - Workers
   - D1
   - 免签支付
-cover: '/tutorial/vmq/vmq-arch.svg'
-description: 想在自己的站点收几块钱，又不想接支付宝/微信商户资质？V免签 Cloudflare Workers 版用「监听手机收款通知」代替支付回调，全部跑在 Cloudflare 免费额度内：Workers 10 万请求/天 + D1 5GB，零服务器零成本。本篇从克隆代码到收到第一笔测试款，每一步都带验证命令与踩坑提示。
+cover: /tutorial/vmq/vmq-arch.svg
+description: >-
+  想在自己的站点收几块钱，又不想接支付宝/微信商户资质？V免签 Cloudflare Workers 版用「监听手机收款通知」代替支付回调，全部跑在
+  Cloudflare 免费额度内：Workers 10 万请求/天 + D1
+  5GB，零服务器零成本。本篇从克隆代码到收到第一笔测试款，每一步都带验证命令与踩坑提示。
 comments: true
+abbrlink: 29b62231
 date: 2026-11-06 10:00:00
 updated: 2026-11-06 10:00:00
 ---

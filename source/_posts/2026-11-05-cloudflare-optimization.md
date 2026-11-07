@@ -8,9 +8,12 @@ tags:
   - SSL
   - 性能优化
   - 网络安全
-cover: '/tutorial/cf/cf-arch.svg'
-description: 不花一分钱，用 Cloudflare 免费套餐给网站套上全球 CDN、全链路 HTTPS、WAF 防火墙和 DDoS 防护。本篇基于本站真实配置，从 DNS 接入、SSL/TLS 加密模式、缓存规则到 WAF 自定义规则逐项实操，TTFB 从 420ms 降到 85ms，附完整配置截图与规则表达式。
+cover: /tutorial/cf/cf-arch.svg
+description: >-
+  不花一分钱，用 Cloudflare 免费套餐给网站套上全球 CDN、全链路 HTTPS、WAF 防火墙和 DDoS 防护。本篇基于本站真实配置，从 DNS
+  接入、SSL/TLS 加密模式、缓存规则到 WAF 自定义规则逐项实操，TTFB 从 420ms 降到 85ms，附完整配置截图与规则表达式。
 comments: true
+abbrlink: ac336d88
 date: 2026-11-05 18:30:00
 updated: 2026-11-05 18:30:00
 ---
