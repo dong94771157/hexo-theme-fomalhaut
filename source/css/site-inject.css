@@ -595,3 +595,207 @@ html[data-rm="off"] #rightside button:has(> i.fa-mouse)::after{content:"";positi
   }
 }
 */
+
+/* ── 16/16  uiPolish  ← 2026-11-10 新增（整体 UI 精致化）─────────────────────
+ * 不动主题源码、不碰前面 15 块，给全站叠一层统一的「精致感」：
+ *  ① 首页/侧栏卡片：默认柔影 + 悬浮微抬升 + 主题色描边/光晕
+ *  ② 常驻顶栏毛玻璃（顶栏 fixed 不随页滚，无 15/15 块删侧栏 backdrop-filter 的性能顾虑）
+ *  ③ 首页卡片进入错落淡入（backwards 填充，结束后不挡 hover 抬升）
+ *  ④ 侧栏卡片标题：左侧主题色渐变装饰条 + 底部虚线分隔
+ *  ⑤ 正文独立图片：圆角 + 柔影 + hover 影加深
+ *  ⑥ 引用块：右侧补圆角 + 加内边距透气（左边框主题色、淡底已由主题/custom.css 提供）
+ *  ⑦ 表格：外框圆角 + 表头主题色淡染 + 边线调淡
+ *  ⑧ 右侧悬浮按钮：hover 主题色光晕 + 微抬升 + 圆角加大
+ *  ⑨ 侧栏标签云胶囊化 + hover 主题色填充
+ *  ⑩ 正文段落链接：hover 主题色下划线展开动画
+ * 配色全部走 var(--theme-color) + color-mix()，每处 color-mix 上一行是老浏览器回退值
+ * （与 annoV2 块同款写法）；深色模式只覆盖需要提亮的变量。动画遵守 prefers-reduced-motion。
+ * 回滚：删掉本块即可（纯样式，不涉及 JS / 模板 / 主题源码）。
+ * ──────────────────────────────────────────────────────────────────────────── */
+
+/* ① 卡片：默认柔影 + 悬浮微抬升 + 主题色描边/光晕。
+ *    .recent-post-item 原本无阴影（custom.css 只给底色/圆角/描边），补一道很淡的默认影；
+ *    .card-widget 原走 .cardHover 灰影，hover 换成主题色染色柔光。
+ *    transform 是合成属性，抬升不触发布局；阴影只在 hover 时变化，静置零开销。 */
+#recent-posts > .recent-post-item {
+  box-shadow: 0 2px 10px -6px rgba(0, 0, 0, .1);
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+#aside-content .card-widget {
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+#recent-posts > .recent-post-item:hover,
+#aside-content .card-widget:hover {
+  transform: translateY(-4px);
+  border-color: rgba(237, 112, 155, .5);
+  border-color: color-mix(in srgb, var(--theme-color, #ed709b) 50%, transparent);
+  box-shadow: 0 10px 28px -10px rgba(237, 112, 155, .3), 0 2px 8px rgba(0, 0, 0, .06);
+  box-shadow: 0 10px 28px -10px color-mix(in srgb, var(--theme-color, #ed709b) 30%, transparent), 0 2px 8px rgba(0, 0, 0, .06);
+}
+[data-theme="dark"] #recent-posts > .recent-post-item:hover,
+[data-theme="dark"] #aside-content .card-widget:hover {
+  box-shadow: 0 10px 28px -10px rgba(237, 112, 155, .4), 0 2px 8px rgba(0, 0, 0, .35);
+  box-shadow: 0 10px 28px -10px color-mix(in srgb, var(--theme-color, #ed709b) 40%, transparent), 0 2px 8px rgba(0, 0, 0, .35);
+}
+
+/* ② 常驻顶栏毛玻璃：把原 opacity:.95 + 实色渐变换成「半透明渐变 + blur/saturate」，
+ *    滚动内容在顶栏后化作柔和色块。顶栏是 fixed 小区域，背景不随滚动重算，与 15/15 块
+ *    删掉的「侧栏卡片 backdrop-filter」完全不同量级。二级菜单有自己的实色底
+ *    （--sidebar-bg），不受影响。深色从 .95 黑降到 .72 黑 + blur，仍压得住底下文字。 */
+#page-header.nav-fixed #nav,
+#page-header.nav-visible #nav {
+  opacity: 1;
+  background: linear-gradient(60deg, rgba(255, 215, 228, .82) 0, rgba(200, 241, 255, .82) 93%);
+  -webkit-backdrop-filter: blur(14px) saturate(1.6);
+  backdrop-filter: blur(14px) saturate(1.6);
+}
+[data-theme="dark"] #page-header.nav-fixed #nav,
+[data-theme="dark"] #page-header.nav-visible #nav {
+  background: rgba(0, 0, 0, .72) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.6);
+  backdrop-filter: blur(14px) saturate(1.6);
+}
+
+/* ③ 首页卡片错落淡入：backwards 填充 = 延迟期间显示 from 态、结束后回到正常样式，
+ *    不会像 both/forwards 那样用末帧 transform 霸占 hover 抬升。与 enter_transitions
+ *    给 #content-inner 的整体入场是叠加关系（父淡入 + 子错落），pjax 切页对新节点同样生效。 */
+@keyframes uiPolish-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+#recent-posts > .recent-post-item {
+  animation: uiPolish-in .55s ease backwards;
+}
+#recent-posts > .recent-post-item:nth-child(2) { animation-delay: .07s; }
+#recent-posts > .recent-post-item:nth-child(3) { animation-delay: .14s; }
+#recent-posts > .recent-post-item:nth-child(4) { animation-delay: .21s; }
+#recent-posts > .recent-post-item:nth-child(5) { animation-delay: .28s; }
+#recent-posts > .recent-post-item:nth-child(n+6) { animation-delay: .35s; }
+@media (prefers-reduced-motion: reduce) {
+  #recent-posts > .recent-post-item { animation: none; }
+}
+
+/* ④ 侧栏卡片标题装饰：标题前加一条主题色渐变小竖条，底下补一条淡虚线，
+ *    给每张卡的标题区统一视觉锚点。原 display:block 改 flex 后图标与文字依然横排
+ *    （span 的 margin-left:6px 保留）。 */
+#aside-content .item-headline {
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(128, 128, 128, .16);
+}
+#aside-content .item-headline::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 4px;
+  height: 15px;
+  border-radius: 2px;
+  margin-right: 8px;
+  background: var(--theme-color, #ed709b);
+  background: linear-gradient(180deg, var(--theme-color, #ed709b), color-mix(in srgb, var(--theme-color, #ed709b) 30%, transparent));
+}
+
+/* ⑤ 正文独立图片：只命中「段落里独占一行」的图片（含被 fancybox 链接包住的），
+ *    行内小图 / 图标 / 头像不在此列。圆角 + 淡影，hover 只加深阴影不缩放，
+ *    避免满宽图 scale 溢出撑出横向滚动条。 */
+#article-container p > img:only-child,
+#article-container p > a:only-child > img {
+  border-radius: 12px;
+  box-shadow: 0 4px 18px -8px rgba(0, 0, 0, .18);
+  transition: box-shadow .4s ease;
+}
+#article-container p > img:only-child:hover,
+#article-container p > a:only-child > img:hover {
+  box-shadow: 0 8px 26px -10px rgba(0, 0, 0, .24);
+}
+[data-theme="dark"] #article-container p > img:only-child,
+[data-theme="dark"] #article-container p > a:only-child > img {
+  box-shadow: 0 4px 18px -8px rgba(0, 0, 0, .5);
+}
+
+/* ⑥ 引用块：右侧补圆角 + 稍加内边距透气。左边框主题色已由 custom.css:2016
+ *    （3px solid var(--theme-color) !important）提供，10% 淡底由 var(--blockquote-bg)
+ *    提供，这里不重复造，只补形。 */
+#article-container blockquote {
+  border-radius: 0 12px 12px 0;
+  padding: 14px 18px;
+}
+
+/* ⑦ 表格：外层 .table-wrap 加圆角 + 淡描边 + 淡影（overflow-x 仍是主题的 scroll，
+ *    圆角自动裁住内部表格）；表头染主题色 10%，单元格边线从 --light-grey 调淡一档。 */
+#article-container .table-wrap {
+  border-radius: 12px;
+  border: 1px solid rgba(128, 128, 128, .16);
+  box-shadow: 0 2px 12px -6px rgba(0, 0, 0, .08);
+}
+#article-container table thead {
+  background: rgba(237, 112, 155, .1);
+  background: color-mix(in srgb, var(--theme-color, #ed709b) 10%, transparent);
+}
+#article-container table th,
+#article-container table td {
+  border-color: rgba(128, 128, 128, .16);
+}
+[data-theme="dark"] #article-container table thead {
+  background: rgba(237, 112, 155, .16);
+  background: color-mix(in srgb, var(--theme-color, #ed709b) 16%, transparent);
+}
+
+/* ⑧ 右侧悬浮按钮：圆角从 5px 加到 10px；hover 主题色光晕 + 微抬升 2px。
+ *    按钮是 35px 小方块，抬升 2px 刚好；光晕用主题色 50% 透明度。 */
+#rightside > div > button,
+#rightside > div > a {
+  border-radius: 10px;
+  transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
+}
+#rightside > div > button:hover,
+#rightside > div > a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px -4px rgba(237, 112, 155, .5);
+  box-shadow: 0 4px 14px -4px color-mix(in srgb, var(--theme-color, #ed709b) 50%, transparent);
+}
+
+/* ⑨ 侧栏标签云胶囊化：原来是无底色纯文字链接，改成圆角胶囊 + 淡底 + 淡描边，
+ *    hover 整颗填成主题色白字。标签内联 font-size（按文章数加权）保留不动。
+ *    custom.css:2054 原有 hover 变色与本块同特异性同 !important，本文件后加载故生效。 */
+#aside-content .card-tag-cloud a {
+  padding: 2px 10px;
+  margin: 3px 2px;
+  border-radius: 999px;
+  background: rgba(237, 112, 155, .08);
+  background: color-mix(in srgb, var(--theme-color, #ed709b) 8%, transparent);
+  border: 1px solid rgba(237, 112, 155, .2);
+  border: 1px solid color-mix(in srgb, var(--theme-color, #ed709b) 20%, transparent);
+  transition: all .25s ease;
+}
+#aside-content .card-tag-cloud a:hover {
+  background: var(--theme-color, #ed709b);
+  border-color: var(--theme-color, #ed709b);
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+[data-theme="dark"] #aside-content .card-tag-cloud a {
+  background: rgba(237, 112, 155, .14);
+  background: color-mix(in srgb, var(--theme-color, #ed709b) 14%, transparent);
+  border-color: rgba(237, 112, 155, .32);
+  border-color: color-mix(in srgb, var(--theme-color, #ed709b) 32%, transparent);
+}
+
+/* ⑩ 正文段落链接下划线展开：用 background-image 渐变模拟下划线，hover 时
+ *    background-size 从 0% 展到 100%，比 text-decoration 过渡更顺滑。
+ *    排除 .headerlink（标题 ¶ 锚点）、.btn、只包图片的链接（:has(> img)）。
+ *    :has() 不支持时整条规则失效，链接回落到主题默认换色行为，无副作用。
+ *    inline 元素的 padding 不影响行高，不会撑乱段落排版。 */
+#article-container p a:not(.headerlink):not(.btn):not(:has(> img)),
+#article-container li a:not(.headerlink):not(.btn):not(:has(> img)) {
+  background-image: linear-gradient(var(--theme-color, #ed709b), var(--theme-color, #ed709b));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 2px;
+  transition: background-size .3s ease, color .2s ease;
+}
+#article-container p a:not(.headerlink):not(.btn):not(:has(> img)):hover,
+#article-container li a:not(.headerlink):not(.btn):not(:has(> img)):hover {
+  background-size: 100% 2px;
+}

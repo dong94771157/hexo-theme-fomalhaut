@@ -1221,7 +1221,7 @@ inject:
     # 上面那些空的 <style id="themeColor"></style> / #rightSide / #transPercent / #bgFilterParam
     # / #defineBg / #menu_shadow / #nav-display / #aside-show / #aside-pos 是"运行时空槽"：
     # 由右下角美化面板的 JS 在运行时往里写 CSS，不能删、不能挪位置。
-    - <link rel="stylesheet" href="/css/site-inject.css?v=20261004q">
+    - <link rel="stylesheet" href="/css/site-inject.css?v=20261110a">
     # ── 手机端抽屉菜单改版（站点独立样式，不改主题源码）────────────────────────
     # source/css/mobile-drawer.css：#sidebar-menus 的层级 / 统计胶囊 / 图标底衬 /
     # 手风琴二级菜单 / 极光底色 / 深色适配，配色全部由 --theme-color 派生。
